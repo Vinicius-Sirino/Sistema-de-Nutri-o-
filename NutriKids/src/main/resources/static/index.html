@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NutriKids - Sistema de Nutrição Escolar</title>
+    <!-- Fonte Séria e Institucional: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Escolar Institucional & Chamativa */
+            --school-navy: #0f172a;
+            --school-blue: #1e40af;
+            --school-royal: #2563eb;
+            --school-light-blue: #eff6ff;
+            --school-gold: #f59e0b;
+            --school-gold-dark: #d97706;
+            --school-gold-light: #fef3c7;
+            --school-green: #15803d;
+            --school-green-light: #dcfce7;
+            --school-red: #dc2626;
+            --school-red-light: #fee2e2;
+
+            /* Tipografia e Estrutura */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-subtle: #64748b;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --border: #cbd5e1;
+            --border-light: #e2e8f0;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER INSTITUCIONAL ESCOLAR */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+            color: white;
+            padding: 20px 24px;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.25);
+            border-bottom: 4px solid var(--school-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            background: #ffffff;
+            color: var(--school-navy);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--school-gold);
+        }
+
+        .logo-area h1 {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .logo-badge {
+            background: var(--school-gold);
+            color: var(--school-navy);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-area p {
+            font-size: 12.5px;
+            color: #cbd5e1;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* NAVEGAÇÃO */
+        nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13.5px;
+            transition: all 0.2s ease;
+            letter-spacing: -0.01em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn.active {
+            background: var(--school-gold);
+            color: var(--school-navy);
+            border-color: var(--school-gold);
+            font-weight: 800;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* ÁREA PRINCIPAL */
+        main {
+            max-width: 1240px;
+            width: 100%;
+            margin: 24px auto;
+            padding: 0 16px;
+            flex: 1;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--border-light);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--school-navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        /* FORMULÁRIOS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--school-navy);
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+
+        input, select {
+            padding: 10px 13px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--school-royal);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+        }
+
+        /* BOTÕES */
+        .btn {
+            background: var(--school-royal);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            letter-spacing: -0.01em;
+        }
+
+        .btn:hover {
+            background: var(--school-blue);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-gold {
+            background: var(--school-gold);
+            color: var(--school-navy);
+            font-weight: 800;
+        }
+        .btn-gold:hover {
+            background: var(--school-gold-dark);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--school-red);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: var(--school-navy);
+            border: 1px solid #cbd5e1;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+            color: var(--school-navy);
+        }
+
+        /* ATALHOS RÁPIDOS */
+        .shortcut-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            align-items: center;
+        }
+
+        .shortcut-btn {
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            color: var(--school-blue);
+            font-weight: 700;
+            font-size: 12.5px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .shortcut-btn:hover {
+            background: var(--school-royal);
+            color: white;
+            border-color: var(--school-royal);
+            transform: translateY(-1px);
+        }
+
+        /* TABELA RESPONSIVA */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-light);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 580px;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--school-navy);
+            border-bottom: 2px solid var(--border-light);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        td {
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 13.5px;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .badge-safe {
+            background: var(--school-green-light);
+            color: var(--school-green);
+            border: 1px solid #bbf7d0;
+        }
+
+        .badge-danger {
+            background: var(--school-red-light);
+            color: var(--school-red);
+            border: 1px solid #fecaca;
+        }
+
+        .badge-warning {
+            background: var(--school-gold-light);
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .badge-date {
+            background: #dbeafe;
+            color: var(--school-blue);
+            font-weight: 800;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #bfdbfe;
+        }
+
+        /* GRID DE CARDÁPIOS */
+        .cardapio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .cardapio-item {
+            background: white;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border-light);
+            border-top: 4px solid var(--school-royal);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cardapio-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--school-royal);
+        }
+
+        .cardapio-day {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--school-navy);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        .dish-row {
+            margin-bottom: 9px;
+            font-size: 13px;
+        }
+
+        .dish-label {
+            font-weight: 700;
+            color: var(--text-subtle);
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .dish-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .alergenos-box {
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: #fffbeb;
+            border-radius: 6px;
+            border: 1.5px solid #fde68a;
+            font-size: 12px;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        /* ALERTA DE SEGURANÇA */
+        .alert-summary {
+            background: linear-gradient(135deg, #fff1f2 0%, #fee2e2 100%);
+            border: 2px solid #fca5a5;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .alert-count {
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--school-red);
+            line-height: 1;
+        }
+
+        .alert-card {
+            background: white;
+            border: 1.5px solid #fca5a5;
+            border-left: 6px solid var(--school-red);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--school-navy);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            border-left: 4px solid var(--school-gold);
+            animation: slideUp 0.25s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-light);
+            background: white;
+            margin-top: auto;
+        }
+
+        /* TELA DE LOGIN */
+        .login-wrapper {
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+            padding: 24px 16px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+            max-width: 420px;
+            width: 100%;
+            padding: 38px 30px;
+            border-top: 5px solid var(--school-gold);
+            animation: fadeIn 0.3s ease-out;
+            box-sizing: border-box;
+            margin: auto;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-logo-icon {
+            font-size: 34px;
+            background: var(--school-light-blue);
+            color: var(--school-navy);
+            width: 64px;
+            height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--school-gold);
+            margin-bottom: 12px;
+        }
+
+        .login-header h2 {
+            font-size: 23px;
+            font-weight: 900;
+            color: var(--school-navy);
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .login-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .login-error {
+            background: #fef2f2;
+            border: 1.5px solid #fca5a5;
+            border-left: 4px solid var(--school-red);
+            color: #991b1b;
+            padding: 11px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .btn-toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text-subtle);
+            padding: 4px;
+            transition: transform 0.15s ease;
+        }
+        .btn-toggle-password:hover {
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        /* ÁREA DE PERFIL NO HEADER */
+        .user-profile-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-badge-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            line-height: 1.2;
+        }
+
+        .user-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-role-tag {
+            font-size: 11px;
+            color: var(--school-gold);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-logout {
+            background: rgba(220, 38, 38, 0.25);
+            border: 1px solid rgba(220, 38, 38, 0.45);
+            color: #fecaca;
+            padding: 7px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        #appContainer {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* REGRAS DE RESPONSIVIDADE (CELULARES & TABLETS) */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px;
+            }
+            .header-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 14px;
+            }
+            .logo-area {
+                justify-content: flex-start;
+            }
+            nav {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .user-profile-area {
+                justify-content: space-between;
+                width: 100%;
+                padding-top: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+            }
+            .user-badge-box {
+                align-items: flex-start;
+            }
+
+            .nav-btn {
+                padding: 9px 8px;
+                font-size: 12px;
+                justify-content: center;
+                text-align: center;
+            }
+            main {
+                margin: 16px auto;
+                padding: 0 12px;
+            }
+            .card {
+                padding: 16px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .shortcut-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .shortcut-bar > div {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 6px;
+                width: 100%;
+            }
+            .alert-summary {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .cardapio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-area h1 {
+                font-size: 19px;
+            }
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+            nav {
+                grid-template-columns: 1fr;
+            }
+            .btn {
+                width: 100%;
+            }
+
+            /* Responsividade Login em Celulares */
+            .login-wrapper {
+                padding: 16px 12px;
+            }
+            .login-card {
+                padding: 26px 18px;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+            }
+            .login-header {
+                margin-bottom: 20px;
+            }
+            .login-logo-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 26px;
+                margin-bottom: 8px;
+            }
+            .login-header h2 {
+                font-size: 20px;
+            }
+            .login-header p {
+                font-size: 12px;
+            }
+            .login-card input {
+                font-size: 16px; /* Impede zoom forçado do teclado no iOS/Safari */
+                padding: 12px 14px;
+            }
+            #btnLoginSubmit {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* Dispositivos móveis na horizontal ou com pouca altura de tela */
+        @media (max-height: 600px) {
+            .login-wrapper {
+                padding: 12px;
+                align-items: flex-start;
+            }
+            .login-card {
+                padding: 20px 22px;
+                margin: 10px auto;
+            }
+            .login-header {
+                margin-bottom: 12px;
+            }
+            .login-logo-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+                margin-bottom: 4px;
+            }
+            .login-header h2 {
+                font-size: 18px;
+            }
+            .login-header p {
+                display: none;
+            }
+            .login-card .form-group {
+                margin-bottom: 12px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN -->
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo-icon">🥗</div>
+                <h2>NutriKids <span class="logo-badge">ESCOLA</span></h2>
+                <p>Sistema de Gestão Nutricional & Necessidades alimentares especiais</p>
+            </div>
+
+            <div id="loginErrorAlert" class="login-error" style="display: none;">
+                <span>⚠️</span>
+                <span id="loginErrorMsg">Usuário ou senha inválidos.</span>
+            </div>
+
+            <form id="formLogin" onsubmit="fazerLogin(event)">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="loginUsername">👤 Usuário:</label>
+                    <input type="text" id="loginUsername" placeholder="Ex: admin" required autocomplete="username">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 22px;">
+                    <label for="loginPassword">🔑 Senha:</label>
+                    <div style="position: relative; width: 100%;">
+                        <input type="password" id="loginPassword" placeholder="Digite sua senha" required autocomplete="current-password" style="width: 100%; padding-right: 42px;">
+                        <button type="button" class="btn-toggle-password" onclick="toggleSenhaVisibilidade()" title="Mostrar/Ocultar Senha">👁️</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gold" id="btnLoginSubmit" style="width: 100%; padding: 13px; font-size: 15px;">
+                    🔐 Acessar o Sistema
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL DO SISTEMA (PROTEGIDO) -->
+    <div id="appContainer">
+        <header>
+            <div class="header-container">
+                <div class="logo-area">
+                    <div class="logo-icon">🥗</div>
+                    <div>
+                        <h1>NutriKids <span class="logo-badge">ESCOLA</span></h1>
+                        <p>Gestão de Nutrição Escolar & Necessidades alimentares especiais</p>
+                    </div>
+                </div>
+                <nav>
+                    <button class="nav-btn active" onclick="switchTab('alertas')">⚠️ Alertas de Restrições</button>
+                    <button class="nav-btn" onclick="switchTab('cardapios')">📅 Calendário de Cardápios</button>
+                    <button class="nav-btn" onclick="switchTab('alunos')">👦 Alunos</button>
+                </nav>
+                <div class="user-profile-area" id="headerUserArea">
+                    <div class="user-badge-box">
+                        <span class="user-name">👤 <span id="userDisplayName">yasmin.pessoa</span></span>
+                        <span class="user-role-tag" id="userDisplayRole">Nutricionista Responsável</span>
+                    </div>
+                    <button type="button" class="btn-logout" onclick="fazerLogout()" title="Sair do Sistema">🚪 Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+        <!-- ABA 1: ALERTA DE SEGURANÇA ALIMENTAR POR DATA -->
+        <section id="tab-alertas" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚠️ Verificação de Segurança Alimentar</h2>
+                    <span style="font-size: 13px; color: var(--text-muted);">Consulte pelo dia exato do calendário</span>
+                </div>
+                
+                <div class="shortcut-bar">
+                    <span style="font-size: 12.5px; font-weight: 800; color: var(--school-navy); text-transform: uppercase; letter-spacing: 0.03em;">📅 Dias da Semana:</span>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-21')">Segunda (21/09)</button>
+                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-22')">Terça (22/09)</button>
+                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-23')">Quarta (23/09)</button>
+                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-24')">Quinta (24/09)</button>
+                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-25')">Sexta (25/09)</button>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="filtroData">Data da Refeição (Calendário):</label>
+                        <input type="date" id="filtroData" value="2026-09-21">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroTurma">Filtrar por Turma (Opcional):</label>
+                        <input type="text" id="filtroTurma" placeholder="Ex: 1A, 1B ou deixe vazio para todas">
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-gold" onclick="consultarAlertas()">🔍 Verificar Alergias no Dia</button>
+                    </div>
+                </div>
+
+                <div id="resultadoAlerta" style="margin-top: 24px;">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 2: CARDÁPIOS POR DATA / CALENDÁRIO -->
+        <section id="tab-cardapios" class="tab-content">
+            <div class="card" id="cardFormCardapio">
+                <div class="card-header">
+                    <h2 class="card-title" id="tituloFormCardapio">➕ Cadastrar Cardápio no Calendário</h2>
+                    <span id="badgeEdicaoCardapio" style="display:none;" class="badge badge-warning">Modo Edição Ativo</span>
+                </div>
+                <form id="formCardapio" onsubmit="salvarCardapio(event)">
+                    <input type="hidden" id="cardapioId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cardapioData">Data no Calendário:</label>
+                            <input type="date" id="cardapioData" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioPrato">Prato Principal:</label>
+                            <input type="text" id="cardapioPrato" required placeholder="Ex: Risoto de Frango com Legumes">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioGuarnicao">Guarnição:</label>
+                            <input type="text" id="cardapioGuarnicao" placeholder="Ex: Salada de Beterraba e Cenoura">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioSobremesa">Sobremesa:</label>
+                            <input type="text" id="cardapioSobremesa" placeholder="Ex: Pera,Flan de Chocolate...">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioAlergenos">Alérgenos Presentes:</label>
+                            <input type="text" id="cardapioAlergenos" placeholder="Ex: lactose, glúten, ovo (ou nenhum)">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioPratoAlternativo">Opção de Substituição / Prato Seguro (Opcional):</label>
+                            <input type="text" id="cardapioPratoAlternativo" placeholder="Ex: Frango grelhado e Maçã fresca (sem lactose/glúten)">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <button type="submit" class="btn btn-gold" id="btnSalvarCardapio">💾 Salvar no Calendário</button>
+                        <button type="button" class="btn btn-secondary" id="btnCancelarEdicaoCardapio" style="display:none;" onclick="cancelarEdicaoCardapio()">❌ Cancelar Edição</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📅 Cardápios Cadastrados por Período</h2>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <span style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Semana atual: 21/09 a 25/09</span>
+                        <button class="btn btn-secondary" onclick="carregarCardapios()">🔄 Atualizar</button>
+                    </div>
+                </div>
+                <div id="gridCardapios" class="cardapio-grid">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 3: GERENCIAMENTO DE ALUNOS -->
+        <section id="tab-alunos" class="tab-content">
+            <div class="card" id="cardFormAluno">
+                <div class="card-header">
+                    <h2 class="card-title" id="tituloFormAluno">➕ Cadastrar Novo Aluno</h2>
+                    <span id="badgeEdicaoAluno" style="display:none;" class="badge badge-warning">Modo Edição Ativo</span>
+                </div>
+                <form id="formAluno" onsubmit="salvarAluno(event)">
+                    <input type="hidden" id="alunoId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="alunoNome">Nome Completo:</label>
+                            <input type="text" id="alunoNome" required placeholder="Ex: Maria Alice">
+                        </div>
+                        <div class="form-group">
+                            <label for="alunoTurma">Turma:</label>
+                            <input type="text" id="alunoTurma" required placeholder="Ex: 1A, 2B">
+                        </div>
+                        <div class="form-group">
+                            <label for="alunoRestricao">Restrição Alimentar (se houver):</label>
+                            <input type="text" id="alunoRestricao" placeholder="Ex: Intolerância a lactose, Glúten, Amendoim...">
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <button type="submit" class="btn btn-gold" id="btnSalvarAluno">💾 Salvar Aluno</button>
+                        <button type="button" class="btn btn-secondary" id="btnCancelarEdicaoAluno" style="display:none;" onclick="cancelarEdicaoAluno()">❌ Cancelar Edição</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📋 Lista de Alunos</h2>
+                    <div>
+                        <button class="btn btn-secondary" onclick="carregarAlunos()">🔄 Atualizar</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Turma</th>
+                                <th>Restrição Alimentar</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaAlunos">
+                            <!-- Preenchido via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+        <footer>
+            <p>NutriKids &copy; 2026 - Gestão e Proteção da Alimentação Escolar</p>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast">Mensagem</div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'alunos') carregarAlunos();
+            if (tabName === 'cardapios') carregarCardapios();
+            if (tabName === 'alertas') consultarAlertas();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        function formatarDataBR(dataISO) {
+            if (!dataISO) return '';
+            const partes = dataISO.split('-');
+            if (partes.length === 3) {
+                return `${partes[2]}/${partes[1]}/${partes[0]}`;
+            }
+            return dataISO;
+        }
+
+        function selecionarDataRapida(dataISO) {
+            document.getElementById('filtroData').value = dataISO;
+            consultarAlertas();
+        }
+
+        // ======================= ALERTA DE REFEIÇÃO =======================
+        async function consultarAlertas() {
+            const dataInput = document.getElementById('filtroData').value;
+            const turma = document.getElementById('filtroTurma').value.trim();
+            const container = document.getElementById('resultadoAlerta');
+
+            container.innerHTML = '<p style="color: var(--text-muted);">Consultando segurança alimentar para a data selecionada...</p>';
+
+            try {
+                let url = `/api/nutricao/alertas?data=${encodeURIComponent(dataInput)}`;
+                if (turma) url += `&turma=${encodeURIComponent(turma)}`;
+
+                const res = await fetch(url);
+                if (!res.ok) {
+                    container.innerHTML = `<div class="alert-summary" style="background:#fef2f2;">⚠️ Nenhum cardápio cadastrado para a data <strong>${formatarDataBR(dataInput)}</strong>. Por favor, selecione uma data cadastrada (ex: de 21/09 a 25/09) ou adicione esta data na aba Calendário.</div>`;
+                    return;
+                }
+
+                const data = await res.json();
+                const dataFormatada = data.data ? formatarDataBR(data.data) : '';
+
+                let html = `
+                    <div class="alert-summary" style="${data.totalAlunosEmAlerta === 0 ? 'background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #a7f3d0;' : ''}">
+                        <div>
+                            <div style="display:flex; align-items:center; gap: 8px; margin-bottom: 6px;">
+                                ${dataFormatada ? `<span class="badge-date">📅 ${dataFormatada}</span>` : ''}
+                                <h3 style="font-size: 18px;">${data.diaDaSemana}</h3>
+                            </div>
+                            <p style="font-size: 14px; color: var(--text-main); margin-top: 4px;">
+                                <strong>Prato:</strong> ${data.pratoPrincipal} | 
+                                <strong>Guarnição:</strong> ${data.guarnicao || 'N/A'} | 
+                                <strong>Sobremesa:</strong> ${data.sobremesa || 'N/A'}
+                            </p>
+                            <p style="font-size: 13px; margin-top: 6px; color: ${data.totalAlunosEmAlerta === 0 ? '#065f46' : '#991b1b'}; font-weight: 600;">
+                                <strong>Alérgenos declarados:</strong> ${data.alergenos || 'Nenhum'}
+                            </p>
+                            ${data.pratoAlternativo ? `
+                                <p style="font-size: 13px; margin-top: 4px; color: #047857; font-weight: 600;">
+                                    🛡️ <strong>Opção de Prato Seguro cadastrado:</strong> ${data.pratoAlternativo}
+                                </p>
+                            ` : ''}
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="alert-count" style="${data.totalAlunosEmAlerta === 0 ? 'color: var(--primary);' : ''}">${data.totalAlunosEmAlerta}</div>
+                            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: ${data.totalAlunosEmAlerta === 0 ? 'var(--primary-dark)' : 'var(--danger)'};">
+                                ${data.totalAlunosEmAlerta === 0 ? 'Cardápio Seguro' : 'Alunos em Risco'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+
+                if (data.alunosEmAlerta.length === 0) {
+                    html += `
+                        <div style="background: var(--primary-light); color: var(--primary-dark); padding: 20px; border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 14px;">
+                            <span style="font-size: 28px;">✅</span>
+                            <div>
+                                <div style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">Cardápio 100% Seguro para esta data!</div>
+                                <span style="font-size: 13.5px; opacity: 0.9;">Nenhum dos alunos selecionados possui restrição aos alimentos servidos nesta refeição.</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `<h4 style="margin-bottom: 14px; font-size: 15px;">⚠️ Alunos com restrição que precisam de substituição no dia ${dataFormatada || data.diaDaSemana}:</h4>`;
+                    data.alunosEmAlerta.forEach(aluno => {
+                        html += `
+                            <div class="alert-card" style="border-left-color: #ef4444;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <strong>${aluno.nome} <span style="color: var(--text-muted); font-size: 13px;">(Turma: ${aluno.turma})</span></strong>
+                                    <span class="badge badge-danger">⚠️ ${aluno.restricao}</span>
+                                </div>
+                                <p style="font-size: 13px; color: #b91c1c; font-weight: 600; margin-bottom: 6px;">
+                                    🛑 ${aluno.motivoAlerta}
+                                </p>
+                                ${aluno.itemConflitante ? `
+                                    <p style="font-size: 13px; color: #374151; margin-bottom: 8px;">
+                                        <strong>🍽️ Item com restrição:</strong> <span style="background: #fee2e2; padding: 2px 6px; border-radius: 4px; font-weight: 600;">${aluno.itemConflitante}</span>
+                                    </p>
+                                ` : ''}
+                                ${aluno.substituicaoSugerida ? `
+                                    <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 13px; color: #065f46;">
+                                        <strong>🔄 Substituição sugerida para ${aluno.nome.split(' ')[0]}:</strong><br>
+                                        ${aluno.substituicaoSugerida}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    });
+                }
+
+                container.innerHTML = html;
+            } catch (err) {
+                container.innerHTML = '<p style="color: var(--danger);">Erro ao consultar o serviço de alertas.</p>';
+            }
+        }
+
+        // ======================= CARDÁPIOS =======================
+        let cardapiosGlobais = [];
+
+        async function carregarCardapios() {
+            const grid = document.getElementById('gridCardapios');
+            grid.innerHTML = '<p>Carregando cardápios...</p>';
+
+            try {
+                const res = await fetch('/api/cardapios');
+                const cardapios = await res.json();
+
+                if (cardapios.length === 0) {
+                    grid.innerHTML = '<p>Nenhum cardápio cadastrado.</p>';
+                    return;
+                }
+
+                cardapios.sort((a, b) => (a.data || '').localeCompare(b.data || ''));
+                cardapiosGlobais = cardapios;
+
+                grid.innerHTML = cardapios.map(c => `
+                    <div class="cardapio-item">
+                        <div class="cardapio-day">
+                            <span>${c.diaDaSemana}</span>
+                            ${c.data ? `<span class="badge-date">${formatarDataBR(c.data)}</span>` : ''}
+                        </div>
+                        <div class="dish-row">
+                            <span class="dish-label">Prato Principal</span>
+                            <span class="dish-value">${c.pratoPrincipal}</span>
+                        </div>
+                        <div class="dish-row">
+                            <span class="dish-label">Guarnição</span>
+                            <span class="dish-value">${c.guarnicao || '—'}</span>
+                        </div>
+                        <div class="dish-row">
+                            <span class="dish-label">Sobremesa</span>
+                            <span class="dish-value">${c.sobremesa || '—'}</span>
+                        </div>
+                        <div class="alergenos-box">
+                            <strong>⚠️ Alérgenos:</strong> ${c.alergenos || 'Nenhum informado'}
+                        </div>
+                        ${c.pratoAlternativo ? `
+                            <div style="margin-top: 10px; font-size: 12px; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px;">
+                                <strong>🛡️ Opção Segura:</strong> ${c.pratoAlternativo}
+                            </div>
+                        ` : ''}
+                        <div style="display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end;">
+                            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoCardapio(${c.id})">✏️ Editar</button>
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarCardapio(${c.id})">🗑️ Excluir</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                grid.innerHTML = '<p style="color: red;">Erro ao carregar cardápios.</p>';
+            }
+        }
+
+        function prepararEdicaoCardapio(id) {
+            const cardapio = cardapiosGlobais.find(item => item.id === id);
+            if (!cardapio) return;
+
+            document.getElementById('cardapioId').value = cardapio.id;
+            document.getElementById('cardapioData').value = cardapio.data || '';
+            document.getElementById('cardapioPrato').value = cardapio.pratoPrincipal || '';
+            document.getElementById('cardapioGuarnicao').value = cardapio.guarnicao || '';
+            document.getElementById('cardapioSobremesa').value = cardapio.sobremesa || '';
+            document.getElementById('cardapioAlergenos').value = cardapio.alergenos || '';
+            document.getElementById('cardapioPratoAlternativo').value = cardapio.pratoAlternativo || '';
+
+            document.getElementById('tituloFormCardapio').innerText = `✏️ Editando Cardápio (${cardapio.diaDaSemana})`;
+            document.getElementById('badgeEdicaoCardapio').style.display = 'inline-block';
+            document.getElementById('btnSalvarCardapio').innerText = '💾 Atualizar Cardápio';
+            document.getElementById('btnCancelarEdicaoCardapio').style.display = 'inline-flex';
+
+            document.getElementById('cardFormCardapio').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoCardapio() {
+            document.getElementById('formCardapio').reset();
+            document.getElementById('cardapioId').value = '';
+            document.getElementById('tituloFormCardapio').innerText = '➕ Cadastrar Cardápio no Calendário';
+            document.getElementById('badgeEdicaoCardapio').style.display = 'none';
+            document.getElementById('btnSalvarCardapio').innerText = '💾 Salvar no Calendário';
+            document.getElementById('btnCancelarEdicaoCardapio').style.display = 'none';
+        }
+
+        async function salvarCardapio(event) {
+            event.preventDefault();
+            const id = document.getElementById('cardapioId').value;
+            const data = document.getElementById('cardapioData').value;
+            const pratoPrincipal = document.getElementById('cardapioPrato').value;
+            const guarnicao = document.getElementById('cardapioGuarnicao').value;
+            const sobremesa = document.getElementById('cardapioSobremesa').value;
+            const alergenos = document.getElementById('cardapioAlergenos').value;
+            const pratoAlternativo = document.getElementById('cardapioPratoAlternativo').value;
+
+            const payload = { data, pratoPrincipal, guarnicao, sobremesa, alergenos, pratoAlternativo };
+
+            try {
+                let res;
+                if (id) {
+                    res = await fetch(`/api/cardapios/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } else {
+                    res = await fetch('/api/cardapios', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+
+                if (res.ok) {
+                    showToast(id ? '✅ Cardápio atualizado com sucesso!' : '✅ Cardápio agendado no calendário!');
+                    cancelarEdicaoCardapio();
+                    carregarCardapios();
+                } else {
+                    showToast('❌ Erro ao salvar alterações no cardápio.');
+                }
+            } catch (err) {
+                showToast('❌ Erro na comunicação com o servidor.');
+            }
+        }
+
+        async function deletarCardapio(id) {
+            if (!confirm('Deseja realmente excluir este cardápio do calendário?')) return;
+
+            try {
+                const res = await fetch(`/api/cardapios/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('🗑️ Cardápio excluído com sucesso!');
+                    carregarCardapios();
+                } else {
+                    showToast('❌ Erro ao excluir cardápio.');
+                }
+            } catch (err) {
+                showToast('❌ Erro na comunicação com o servidor.');
+            }
+        }
+
+        // ======================= ALUNOS =======================
+        let alunosGlobais = [];
+
+        async function carregarAlunos() {
+            const tbody = document.getElementById('tabelaAlunos');
+            tbody.innerHTML = '<tr><td colspan="5">Carregando alunos...</td></tr>';
+
+            try {
+                const res = await fetch('/api/alunos');
+                const alunos = await res.json();
+
+                if (alunos.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">Nenhum aluno cadastrado.</td></tr>';
+                    return;
+                }
+
+                alunosGlobais = alunos;
+
+                tbody.innerHTML = alunos.map(a => `
+                    <tr>
+                        <td>#${a.id}</td>
+                        <td><strong>${a.nome}</strong></td>
+                        <td><span class="badge" style="background:#e0e7ff; color:#3730a3;">${a.turma}</span></td>
+                        <td>
+                            ${a.restricao && a.restricao.trim() !== '' 
+                                ? `<span class="badge badge-danger">⚠️ ${a.restricao}</span>` 
+                                : `<span class="badge badge-safe">Sem restrições</span>`}
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoAluno(${a.id})">✏️ Editar</button>
+                                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarAluno(${a.id})">Excluir</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="5" style="color: red;">Erro ao carregar alunos.</td></tr>';
+            }
+        }
+
+        function prepararEdicaoAluno(id) {
+            const aluno = alunosGlobais.find(item => item.id === id);
+            if (!aluno) return;
+
+            document.getElementById('alunoId').value = aluno.id;
+            document.getElementById('alunoNome').value = aluno.nome || '';
+            document.getElementById('alunoTurma').value = aluno.turma || '';
+            document.getElementById('alunoRestricao').value = aluno.restricao || '';
+
+            document.getElementById('tituloFormAluno').innerText = `✏️ Editando Aluno #${aluno.id}`;
+            document.getElementById('badgeEdicaoAluno').style.display = 'inline-block';
+            document.getElementById('btnSalvarAluno').innerText = '💾 Atualizar Aluno';
+            document.getElementById('btnCancelarEdicaoAluno').style.display = 'inline-flex';
+
+            document.getElementById('cardFormAluno').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoAluno() {
+            document.getElementById('formAluno').reset();
+            document.getElementById('alunoId').value = '';
+            document.getElementById('tituloFormAluno').innerText = '➕ Cadastrar Novo Aluno';
+            document.getElementById('badgeEdicaoAluno').style.display = 'none';
+            document.getElementById('btnSalvarAluno').innerText = '💾 Salvar Aluno';
+            document.getElementById('btnCancelarEdicaoAluno').style.display = 'none';
+        }
+
+        async function salvarAluno(event) {
+            event.preventDefault();
+            const id = document.getElementById('alunoId').value;
+            const nome = document.getElementById('alunoNome').value;
+            const turma = document.getElementById('alunoTurma').value;
+            const restricao = document.getElementById('alunoRestricao').value;
+
+            const payload = { nome, turma, restricao };
+
+            try {
+                let res;
+                if (id) {
+                    // Edição (PUT)
+                    res = await fetch(`/api/alunos/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } else {
+                    // Cadastro (POST)
+                    res = await fetch('/api/alunos', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+
+                if (res.ok) {
+                    showToast(id ? '✅ Aluno atualizado com sucesso!' : '✅ Aluno cadastrado com sucesso!');
+                    cancelarEdicaoAluno();
+                    carregarAlunos();
+                } else {
+                    showToast('❌ Erro ao salvar dados do aluno.');
+                }
+            } catch (err) {
+                showToast('❌ Falha na comunicação com o servidor.');
+            }
+        }
+
+        async function deletarAluno(id) {
+            if (!confirm('Deseja realmente excluir este aluno?')) return;
+
+            try {
+                const res = await fetch(`/api/alunos/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('🗑️ Aluno removido com sucesso!');
+                    carregarAlunos();
+                }
+            } catch (err) {
+                showToast('❌ Erro ao deletar aluno.');
+            }
+        }
+
+        // ======================= AUTENTICAÇÃO / LOGIN =======================
+        function toggleSenhaVisibilidade() {
+            const input = document.getElementById('loginPassword');
+            const btn = event.currentTarget;
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.innerText = '🙈';
+            } else {
+                input.type = 'password';
+                btn.innerText = '👁️';
+            }
+        }
+
+        function checkAuth() {
+            const storedUser = sessionStorage.getItem('nutrikids_auth');
+            const loginScreen = document.getElementById('loginScreen');
+            const appContainer = document.getElementById('appContainer');
+
+            if (storedUser) {
+                try {
+                    const user = JSON.parse(storedUser);
+                    document.getElementById('userDisplayName').innerText = user.nome || user.username;
+                    document.getElementById('userDisplayRole').innerText = user.cargo || 'Usuário Autenticado';
+
+                    loginScreen.style.display = 'none';
+                    appContainer.style.display = 'flex';
+                    consultarAlertas();
+                    return;
+                } catch (e) {
+                    sessionStorage.removeItem('nutrikids_auth');
+                }
+            }
+
+            // Não autenticado
+            loginScreen.style.display = 'flex';
+            appContainer.style.display = 'none';
+            setTimeout(() => {
+                const usernameInput = document.getElementById('loginUsername');
+                if (usernameInput) usernameInput.focus();
+            }, 100);
+        }
+
+        async function fazerLogin(event) {
+            event.preventDefault();
+            const usernameInput = document.getElementById('loginUsername');
+            const passwordInput = document.getElementById('loginPassword');
+            const btnSubmit = document.getElementById('btnLoginSubmit');
+            const errorAlert = document.getElementById('loginErrorAlert');
+            const errorMsg = document.getElementById('loginErrorMsg');
+
+            const username = usernameInput.value.trim();
+            const senha = passwordInput.value.trim();
+
+            if (!username || !senha) {
+                errorAlert.style.display = 'flex';
+                errorMsg.innerText = 'Preencha o usuário e a senha.';
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = '⏳ Validando credenciais...';
+            errorAlert.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, senha })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.autenticado) {
+                    sessionStorage.setItem('nutrikids_auth', JSON.stringify(data));
+                    showToast(`👋 Bem-vindo(a), ${data.nome || data.username}!`);
+                    passwordInput.value = '';
+                    checkAuth();
+                } else {
+                    errorAlert.style.display = 'flex';
+                    errorMsg.innerText = data.mensagem || 'Usuário ou senha incorretos.';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            } catch (err) {
+                errorAlert.style.display = 'flex';
+                errorMsg.innerText = 'Erro de comunicação com o servidor. Verifique se o backend está em execução.';
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = '🔐 Acessar o Sistema';
+            }
+        }
+
+        function fazerLogout() {
+            if (confirm('Deseja realmente sair do sistema NutriKids?')) {
+                sessionStorage.removeItem('nutrikids_auth');
+                showToast('🚪 Sessão finalizada com sucesso!');
+                checkAuth();
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+        });
+    </script>
+</body>
+</html>

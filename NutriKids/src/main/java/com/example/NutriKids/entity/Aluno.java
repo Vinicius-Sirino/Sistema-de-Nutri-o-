@@ -22,5 +22,6 @@ public class Aluno {
     @Column(nullable = false)
     private String turma;
 
+
     private String restricao;
 }
