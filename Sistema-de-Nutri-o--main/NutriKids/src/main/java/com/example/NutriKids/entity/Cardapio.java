@@ -36,4 +36,6 @@ public class Cardapio {
     private String alergenos;      // Ex: "lactose, glúten, amendoim"
 
     private String pratoAlternativo; // Ex: "Frango grelhado com salada de frutas (sem lactose e glúten)"
+
+    private String proteinaVegana; // Ex: "Berinjela à bolonhesa com lentilha ou proteína de soja"
 }

@@ -13,4 +13,5 @@ public class LoginResponseDTO {
     private String username;
     private String nome;
     private String cargo;
+    private String fotoUrl;
 }

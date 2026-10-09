@@ -17,25 +17,25 @@ public class AuthService {
 
     public LoginResponseDTO autenticar(LoginRequestDTO request) {
         if (request == null || request.getUsername() == null || request.getSenha() == null) {
-            return new LoginResponseDTO(false, "Usuário e senha são obrigatórios.", null, null, null);
+            return new LoginResponseDTO(false, "Usuário e senha são obrigatórios.", null, null, null, null);
         }
 
         String username = request.getUsername().trim();
         String senha = request.getSenha().trim();
 
         if (username.isEmpty() || senha.isEmpty()) {
-            return new LoginResponseDTO(false, "Usuário e senha não podem estar em branco.", null, null, null);
+            return new LoginResponseDTO(false, "Usuário e senha não podem estar em branco.", null, null, null, null);
         }
 
         Optional<Usuario> usuarioOpt = usuarioRepository.findByUsername(username);
 
         if (usuarioOpt.isEmpty()) {
-            return new LoginResponseDTO(false, "Credenciais inválidas. Verifique o usuário e a senha.", null, null, null);
+            return new LoginResponseDTO(false, "Credenciais inválidas. Verifique o usuário e a senha.", null, null, null, null);
         }
 
         Usuario usuario = usuarioOpt.get();
         if (!usuario.getSenha().equals(senha)) {
-            return new LoginResponseDTO(false, "Credenciais inválidas. Verifique o usuário e a senha.", null, null, null);
+            return new LoginResponseDTO(false, "Credenciais inválidas. Verifique o usuário e a senha.", null, null, null, null);
         }
 
         return new LoginResponseDTO(
@@ -43,7 +43,8 @@ public class AuthService {
                 "Login realizado com sucesso!",
                 usuario.getUsername(),
                 usuario.getNome(),
-                usuario.getCargo()
+                usuario.getCargo(),
+                usuario.getFotoUrl()
         );
     }
 }

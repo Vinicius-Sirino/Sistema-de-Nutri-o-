@@ -49,6 +49,7 @@ public class CardapioService {
             cardapioExistente.setSobremesa(cardapioAtualizado.getSobremesa());
             cardapioExistente.setAlergenos(cardapioAtualizado.getAlergenos());
             cardapioExistente.setPratoAlternativo(cardapioAtualizado.getPratoAlternativo());
+            cardapioExistente.setProteinaVegana(cardapioAtualizado.getProteinaVegana());
             preencherDiaDaSemanaSeNecessario(cardapioExistente);
             return cardapioRepository.save(cardapioExistente);
         });

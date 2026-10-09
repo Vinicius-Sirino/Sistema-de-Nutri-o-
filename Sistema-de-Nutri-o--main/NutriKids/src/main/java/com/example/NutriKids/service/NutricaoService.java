@@ -76,7 +76,10 @@ public class NutricaoService {
                         aluno.getRestricao(),
                         conflito.motivoAlerta,
                         conflito.itemConflitante,
-                        conflito.substituicaoSugerida
+                        conflito.substituicaoSugerida,
+                        aluno.getCartaMedicaArquivo() != null,
+                        aluno.getCartaMedicaNome(),
+                        aluno.getFotoUrl()
                 ));
             }
         }
@@ -89,6 +92,7 @@ public class NutricaoService {
                 cardapio.getSobremesa(),
                 cardapio.getAlergenos(),
                 cardapio.getPratoAlternativo(),
+                cardapio.getProteinaVegana(),
                 alunosEmAlerta.size(),
                 alunosEmAlerta
         );
@@ -128,7 +132,7 @@ public class NutricaoService {
         // 2. GLÚTEN / CELÍACO / TRIGO
         if (restricao.contains("glúten") || restricao.contains("gluten") || restricao.contains("celíac") || restricao.contains("celiaco") || restricao.contains("trigo")) {
             if (alergenos.contains("glúten") || alergenos.contains("gluten") || alergenos.contains("trigo") || pratoPrincipal.contains("macarr") || pratoPrincipal.contains("lasanha") || pratoPrincipal.contains("empanado") || sobremesa.contains("bolo") || sobremesa.contains("torta") || guarnicao.contains("farofa") || guarnicao.contains("macarr")) {
-                String item = identificarItem(pratoPrincipal, guarnicao, sobremesa, "macarr", "lasanha", "empanado", "bolo", "torta", "farofa", "trigo");
+                String item = identificarItem(pratoPrincipal, guarnicao, sobremesa, "macarrão", "lasanha", "empanado", "bolo", "torta", "farofa", "trigo");
                 String troca = sugestaoPadrao != null ? sugestaoPadrao : sugerirTrocaGluten(item, sobremesa, cardapio);
                 return new ConflitoAlimentar(true, "ALERTA DE GLÚTEN: Cardápio contém farinha de trigo, massas ou empanados.", item, troca);
             }
@@ -161,7 +165,21 @@ public class NutricaoService {
             }
         }
 
-        // 6. VERIFICAÇÃO GENÉRICA DE PALAVRAS DA RESTRIÇÃO
+        // 6. RESTRIÇÃO VEGANA / VEGETARIANA
+        if (restricao.contains("vegan") || restricao.contains("vegetar") || restricao.contains("sem carne")) {
+            boolean contemCarne = pratoPrincipal.contains("carne") || pratoPrincipal.contains("frango") || pratoPrincipal.contains("peixe")
+                    || pratoPrincipal.contains("bovina") || pratoPrincipal.contains("suíno") || pratoPrincipal.contains("suino") || pratoPrincipal.contains("bacon")
+                    || pratoPrincipal.contains("almôndega") || pratoPrincipal.contains("almondega") || pratoPrincipal.contains("strogonoff")
+                    || pratoPrincipal.contains("feijoada") || pratoPrincipal.contains("hambúrguer") || pratoPrincipal.contains("hamburguer");
+            if (contemCarne) {
+                String troca = (cardapio.getProteinaVegana() != null && !cardapio.getProteinaVegana().isBlank())
+                        ? "Servir opção de Proteína Vegana do dia: " + cardapio.getProteinaVegana()
+                        : (sugestaoPadrao != null ? sugestaoPadrao : "Substituir por proteína vegetal (lentilha, grão-de-bico ou soja)");
+                return new ConflitoAlimentar(true, "RESTRIÇÃO VEGANA/VEGETARIANA: Prato principal do dia possui carne animal.", "Prato Principal: " + cardapio.getPratoPrincipal(), troca);
+            }
+        }
+
+        // 7. VERIFICAÇÃO GENÉRICA DE PALAVRAS DA RESTRIÇÃO
         String[] palavras = restricao.split("[,;\\s/]+");
         for (String palavra : palavras) {
             String p = palavra.trim();

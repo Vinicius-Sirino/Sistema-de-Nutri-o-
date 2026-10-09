@@ -14,9 +14,16 @@ public class AlunoEmRiscoDTO {
     private String restricao;
     private String motivoAlerta;
     
-    // Novo: item do cardápio que causa o conflito (ex: "Bolo de Chocolate", "Strogonoff com creme de leite")
+    // Item do cardápio que causa o conflito (ex: "Bolo de Chocolate", "Strogonoff com creme de leite")
     private String itemConflitante;
 
-    // Novo: sugestão de substituição segura para o aluno (ex: "Substituir bolo por maçã ou fruta fresca")
+    // Sugestão de substituição segura para o aluno (ex: "Substituir bolo por maçã ou fruta fresca")
     private String substituicaoSugerida;
+
+    // Dados da Carta / Laudo Médico
+    private boolean temCartaMedica;
+    private String cartaMedicaNome;
+
+    // Foto do Aluno para identificação visual imediata
+    private String fotoUrl;
 }

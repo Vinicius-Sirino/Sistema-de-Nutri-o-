@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NutriKids - Sistema de Nutrição Escolar</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
     <!-- Fonte Séria e Institucional: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +23,11 @@
             --school-green-light: #dcfce7;
             --school-red: #dc2626;
             --school-red-light: #fee2e2;
+
+            /* Variáveis Primárias / Tema */
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
 
             /* Tipografia e Estrutura */
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -57,12 +63,12 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* HEADER INSTITUCIONAL ESCOLAR */
+        /* HEADER INSTITUCIONAL ESCOLAR (2 NÍVEIS) */
         header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+            background: linear-gradient(135deg, #0b132b 0%, #1c3d5a 45%, #1e3a8a 100%);
             color: white;
-            padding: 20px 24px;
-            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.25);
+            padding: 16px 24px 0 24px;
+            box-shadow: 0 6px 24px rgba(15, 23, 42, 0.4);
             border-bottom: 4px solid var(--school-gold);
             position: sticky;
             top: 0;
@@ -73,10 +79,23 @@
             max-width: 1240px;
             margin: 0 auto;
             display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .header-top-row {
+            display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
+        }
+
+        .header-nav-row {
+            display: flex;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 0 14px 0;
         }
 
         .logo-area {
@@ -86,17 +105,26 @@
         }
 
         .logo-icon {
-            font-size: 28px;
             background: #ffffff;
-            color: var(--school-navy);
             width: 48px;
             height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             border: 2px solid var(--school-gold);
+            padding: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo-icon img,
+        .login-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .logo-area h1 {
@@ -126,41 +154,96 @@
             letter-spacing: -0.01em;
         }
 
-        /* NAVEGAÇÃO */
+        /* NAVEGAÇÃO DISTRIBUÍDA NA LARGURA TOTAL */
         nav {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 100%;
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
-            padding: 9px 16px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 13.5px;
+            font-size: 14px;
             transition: all 0.2s ease;
             letter-spacing: -0.01em;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.24);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
         .nav-btn.active {
-            background: var(--school-gold);
+            background: #ffffff;
             color: var(--school-navy);
-            border-color: var(--school-gold);
+            border-color: #ffffff;
             font-weight: 800;
-            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
-            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* SUB-ABAS / PASTAS DE ALUNOS */
+        .subtab-container {
+            display: inline-flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 12px;
+            gap: 6px;
+            margin-bottom: 22px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .subtab-btn {
+            background: transparent;
+            border: 1.5px solid transparent;
+            color: #475569;
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .subtab-btn:hover {
+            color: var(--school-navy);
+            background: rgba(255, 255, 255, 0.65);
+        }
+
+        .subtab-btn.active {
+            background: var(--school-royal);
+            color: #ffffff !important;
+            border-color: var(--school-royal);
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .search-badge {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
         }
 
         /* ÁREA PRINCIPAL */
@@ -344,6 +427,13 @@
             transform: translateY(-1px);
         }
 
+        .shortcut-btn.active {
+            background: var(--school-navy);
+            color: #ffffff;
+            border-color: var(--school-gold);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+        }
+
         /* TABELA RESPONSIVA */
         .table-responsive {
             width: 100%;
@@ -488,6 +578,94 @@
             font-weight: 600;
         }
 
+        /* BOTÃO DESTACADO: FALE COM A NUTRICIONISTA */
+        .btn-fale-nutri {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 13.5px;
+            padding: 9px 18px;
+            border-radius: 10px;
+            border: 2px solid #fbbf24;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-fale-nutri:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .btn-fale-nutri:active {
+            transform: translateY(0);
+        }
+
+        /* MODAL FALE COM A NUTRICIONISTA */
+        .modal-nutri-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+
+        .modal-nutri-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 560px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+            border: 1.5px solid var(--border);
+            overflow: hidden;
+            animation: modalFadeIn 0.22s ease-out;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-nutri-header {
+            background: linear-gradient(135deg, var(--school-navy) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--school-gold);
+        }
+
+        .modal-nutri-body {
+            padding: 22px 24px;
+            overflow-y: auto;
+        }
+
+        .modal-nutri-footer {
+            padding: 14px 24px;
+            background: #f8fafc;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         /* ALERTA DE SEGURANÇA */
         .alert-summary {
             background: linear-gradient(135deg, #fff1f2 0%, #fee2e2 100%);
@@ -585,18 +763,18 @@
         }
 
         .login-logo-icon {
-            font-size: 34px;
-            background: var(--school-light-blue);
-            color: var(--school-navy);
-            width: 64px;
-            height: 64px;
+            background: #ffffff;
+            width: 76px;
+            height: 76px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
             border: 2px solid var(--school-gold);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            padding: 6px;
+            overflow: hidden;
         }
 
         .login-header h2 {
@@ -662,6 +840,64 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        .user-avatar-circle {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--school-gold);
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .user-avatar-circle:hover {
+            transform: scale(1.08);
+            border-color: #ffffff;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+        }
+
+        .user-avatar-circle .avatar-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            border-radius: 50%;
+        }
+
+        .user-avatar-circle:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .user-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .user-avatar-initials {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            user-select: none;
         }
 
         .user-badge-box {
@@ -866,9 +1102,11 @@
     <div id="loginScreen" class="login-wrapper">
         <div class="login-card">
             <div class="login-header">
-                <div class="login-logo-icon">🥗</div>
+                <div class="login-logo-icon">
+                    <img src="logo.svg" alt="NutriKids Logo">
+                </div>
                 <h2>NutriKids <span class="logo-badge">ESCOLA</span></h2>
-                <p>Sistema de Gestão Nutricional & Proteção contra Alergias</p>
+                <p>Sistema de Gestão Nutricional & Necessidades alimentares especiais</p>
             </div>
 
             <div id="loginErrorAlert" class="login-error" style="display: none;">
@@ -901,24 +1139,45 @@
     <div id="appContainer">
         <header>
             <div class="header-container">
-                <div class="logo-area">
-                    <div class="logo-icon">🥗</div>
-                    <div>
-                        <h1>NutriKids <span class="logo-badge">ESCOLA</span></h1>
-                        <p>Gestão de Nutrição Escolar & Proteção contra Alergias</p>
+                <!-- LINHA SUPERIOR: LOGO À ESQUERDA | FOTO + NOME + SAIR À DIREITA -->
+                <div class="header-top-row">
+                    <div class="logo-area">
+                        <div class="logo-icon">
+                            <img src="logo.svg" alt="NutriKids Logo">
+                        </div>
+                        <div>
+                            <h1>NutriKids <span class="logo-badge">ESCOLA</span></h1>
+                            <p>Gestão de Nutrição Escolar & Necessidades alimentares especiais</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <button type="button" class="btn-fale-nutri" onclick="abrirModalFaleNutri()" title="Falar com a Nutricionista Responsável">
+                            💬 Fale com a Nutricionista
+                        </button>
+
+                        <div class="user-profile-area" id="headerUserArea">
+                            <div class="user-avatar-circle" id="userHeaderAvatar" onclick="abrirSeletorFotoPerfil()" title="Clique para alterar sua foto de perfil">
+                                <img id="userHeaderImg" class="user-avatar-img" src="" alt="Foto" style="display:none;" onerror="this.style.display='none'; document.getElementById('userHeaderInitials').style.display='block';">
+                                <span id="userHeaderInitials" class="user-avatar-initials">VS</span>
+                                <div class="avatar-overlay">📷</div>
+                            </div>
+                            <div class="user-badge-box">
+                                <span class="user-name"><span id="userDisplayName">Vinicius Sirino</span></span>
+                                <span class="user-role-tag" id="userDisplayRole">Responsável pelo Sistema</span>
+                            </div>
+                            <button type="button" class="btn-logout" onclick="fazerLogout()" title="Sair do Sistema">🚪 Sair</button>
+                            <input type="file" id="inputFotoPerfilHeader" accept="image/png,image/jpeg,image/webp,image/jpg" style="display:none;" onchange="aoTrocarFotoPerfilHeader(event)">
+                        </div>
                     </div>
                 </div>
-                <nav>
-                    <button class="nav-btn active" onclick="switchTab('alertas')">⚠️ Alertas de Merenda</button>
-                    <button class="nav-btn" onclick="switchTab('cardapios')">📅 Calendário de Cardápios</button>
-                    <button class="nav-btn" onclick="switchTab('alunos')">👦 Alunos</button>
-                </nav>
-                <div class="user-profile-area" id="headerUserArea">
-                    <div class="user-badge-box">
-                        <span class="user-name">👤 <span id="userDisplayName">Dra. Camila</span></span>
-                        <span class="user-role-tag" id="userDisplayRole">Nutricionista Responsável</span>
-                    </div>
-                    <button type="button" class="btn-logout" onclick="fazerLogout()" title="Sair do Sistema">🚪 Sair</button>
+
+                <!-- LINHA INFERIOR: ABAS DE NAVEGAÇÃO -->
+                <div class="header-nav-row">
+                    <nav>
+                        <button class="nav-btn active" id="navBtn-alertas" onclick="switchTab('alertas')">⚠️ Alertas de Restrições</button>
+                        <button class="nav-btn" id="navBtn-cardapios" onclick="switchTab('cardapios')">📅 Calendário de Cardápios</button>
+                        <button class="nav-btn" id="navBtn-alunos" onclick="switchTab('alunos')">👦 Alunos</button>
+                    </nav>
                 </div>
             </div>
         </header>
@@ -933,20 +1192,24 @@
                 </div>
                 
                 <div class="shortcut-bar">
-                    <span style="font-size: 12.5px; font-weight: 800; color: var(--school-navy); text-transform: uppercase; letter-spacing: 0.03em;">📅 Dias da Semana:</span>
-                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-21')">Segunda (21/09)</button>
-                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-22')">Terça (22/09)</button>
-                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-23')">Quarta (23/09)</button>
-                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-24')">Quinta (24/09)</button>
-                        <button type="button" class="shortcut-btn" onclick="selecionarDataRapida('2026-09-25')">Sexta (25/09)</button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="font-size: 12.5px; font-weight: 800; color: var(--school-navy); text-transform: uppercase; letter-spacing: 0.03em;">📅 Dias da Semana:</span>
+                            <div id="containerBotoesSemana" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                <!-- Botões gerados dinamicamente via JavaScript conforme a semana selecionada -->
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn btn-secondary" style="padding: 5px 12px; font-size: 12px;" onclick="mudarSemana(-7)" title="Ver semana anterior">◀ Semana Anterior</button>
+                            <button type="button" class="btn btn-secondary" style="padding: 5px 12px; font-size: 12px;" onclick="mudarSemana(7)" title="Ver próxima semana">Próxima Semana ▶</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="filtroData">Data da Refeição (Calendário):</label>
-                        <input type="date" id="filtroData" value="2026-09-21">
+                        <input type="date" id="filtroData" value="2026-09-21" onchange="aoMudarDataManual(this.value)">
                     </div>
                     <div class="form-group">
                         <label for="filtroTurma">Filtrar por Turma (Opcional):</label>
@@ -987,7 +1250,7 @@
                         </div>
                         <div class="form-group">
                             <label for="cardapioSobremesa">Sobremesa:</label>
-                            <input type="text" id="cardapioSobremesa" placeholder="Ex: Pera fatiada, Bolo de Chocolate...">
+                            <input type="text" id="cardapioSobremesa" placeholder="Ex: Pera,Flan de Chocolate...">
                         </div>
                         <div class="form-group">
                             <label for="cardapioAlergenos">Alérgenos Presentes:</label>
@@ -996,6 +1259,10 @@
                         <div class="form-group">
                             <label for="cardapioPratoAlternativo">Opção de Substituição / Prato Seguro (Opcional):</label>
                             <input type="text" id="cardapioPratoAlternativo" placeholder="Ex: Frango grelhado e Maçã fresca (sem lactose/glúten)">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardapioProteinaVegana">🌱 Opção de Proteína Vegana (Opcional):</label>
+                            <input type="text" id="cardapioProteinaVegana" placeholder="Ex: Berinjela à bolonhesa com lentilha ou proteína de soja">
                         </div>
                     </div>
                     <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
@@ -1006,71 +1273,197 @@
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📅 Cardápios Cadastrados por Período</h2>
-                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                        <span style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Semana atual: 21/09 a 25/09</span>
-                        <button class="btn btn-secondary" onclick="carregarCardapios()">🔄 Atualizar</button>
+                <div class="card-header" style="flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 class="card-title">📅 Cardápios por Mês</h2>
+                        <span id="subtituloMesCardapio" style="font-size: 13px; color: var(--text-muted); font-weight: 600; display: block; margin-top: 3px;">
+                            Carregando período...
+                        </span>
+                    </div>
+
+                    <!-- BARRA DE CONTROLE E NAVEGAÇÃO DE MESES -->
+                    <div class="mes-filter-controls" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary" onclick="navegarMesRelativo(-1)" title="Mês anterior" style="padding: 7px 12px; font-weight: bold; font-size: 13px;">
+                            ◀
+                        </button>
+
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <label for="filtroMesCardapio" style="font-size: 12px; font-weight: 700; color: var(--school-navy); text-transform: uppercase;">Mês:</label>
+                            <select id="filtroMesCardapio" onchange="aoTrocarFiltroMes()" style="padding: 7px 12px; border-radius: 8px; border: 1.5px solid var(--border); font-weight: 600; font-size: 13px; color: var(--text-main); background: #ffffff; cursor: pointer;">
+                                <option value="TODOS">🌐 Todos os Meses</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+
+                            <select id="filtroAnoCardapio" onchange="aoTrocarFiltroMes()" style="padding: 7px 10px; border-radius: 8px; border: 1.5px solid var(--border); font-weight: 600; font-size: 13px; color: var(--text-main); background: #ffffff; cursor: pointer;">
+                                <option value="2025">2025</option>
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary" onclick="navegarMesRelativo(1)" title="Próximo mês" style="padding: 7px 12px; font-weight: bold; font-size: 13px;">
+                            ▶
+                        </button>
+
+                        <button type="button" class="btn btn-secondary" onclick="carregarCardapios()" title="Atualizar cardápios" style="padding: 7px 12px;">
+                            🔄 Atualizar
+                        </button>
                     </div>
                 </div>
-                <div id="gridCardapios" class="cardapio-grid">
+
+                <div id="gridCardapios" class="cardapio-grid" style="margin-top: 14px;">
                     <!-- Preenchido via JavaScript -->
                 </div>
             </div>
         </section>
 
-        <!-- ABA 3: GERENCIAMENTO DE ALUNOS -->
+        <!-- ABA 3: GERENCIAMENTO DE ALUNOS (COM SUB-PASTAS DE CONSULTA E CADASTRO) -->
         <section id="tab-alunos" class="tab-content">
-            <div class="card" id="cardFormAluno">
-                <div class="card-header">
-                    <h2 class="card-title" id="tituloFormAluno">➕ Cadastrar Novo Aluno</h2>
-                    <span id="badgeEdicaoAluno" style="display:none;" class="badge badge-warning">Modo Edição Ativo</span>
-                </div>
-                <form id="formAluno" onsubmit="salvarAluno(event)">
-                    <input type="hidden" id="alunoId">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="alunoNome">Nome Completo:</label>
-                            <input type="text" id="alunoNome" required placeholder="Ex: Maria Alice">
-                        </div>
-                        <div class="form-group">
-                            <label for="alunoTurma">Turma:</label>
-                            <input type="text" id="alunoTurma" required placeholder="Ex: 1A, 2B">
-                        </div>
-                        <div class="form-group">
-                            <label for="alunoRestricao">Restrição Alimentar (se houver):</label>
-                            <input type="text" id="alunoRestricao" placeholder="Ex: Intolerância a lactose, Glúten, Amendoim...">
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                        <button type="submit" class="btn btn-gold" id="btnSalvarAluno">💾 Salvar Aluno</button>
-                        <button type="button" class="btn btn-secondary" id="btnCancelarEdicaoAluno" style="display:none;" onclick="cancelarEdicaoAluno()">❌ Cancelar Edição</button>
-                    </div>
-                </form>
+            <!-- SUB-PASTAS / SUB-ABAS DE ALUNOS -->
+            <div class="subtab-container">
+                <button type="button" class="subtab-btn active" id="subtabBtnConsulta" onclick="switchSubTabAlunos('consulta')">
+                    📋 Consultar & Buscar Alunos
+                </button>
+                <button type="button" class="subtab-btn" id="subtabBtnCadastro" onclick="switchSubTabAlunos('cadastro')">
+                    ➕ Cadastrar Novo Aluno
+                </button>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📋 Lista de Alunos</h2>
-                    <div>
-                        <button class="btn btn-secondary" onclick="carregarAlunos()">🔄 Atualizar</button>
+            <!-- SUB-PASTA 1: CONSULTA E BUSCA POR NOME / TURMA / LAUDO -->
+            <div id="subtab-alunos-consulta" class="subtab-panel">
+                <!-- CARD DE BUSCA E FILTROS -->
+                <div class="card" style="margin-bottom: 20px; border-left: 4px solid var(--primary);">
+                    <div class="card-header">
+                        <h2 class="card-title">🔍 Localizar Aluno por Nome ou Turma</h2>
+                        <span id="contadorAlunosEncontrados" class="search-badge">Carregando...</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+                        Digite o nome do aluno ou a turma abaixo para filtrar instantaneamente na lista sem precisar rolar a página:
+                    </p>
+                    <div class="form-grid" style="grid-template-columns: 2fr 1fr 1.2fr auto; align-items: flex-end; gap: 12px;">
+                        <div class="form-group">
+                            <label for="buscaAlunoNome">🔎 Nome do Aluno:</label>
+                            <input type="text" id="buscaAlunoNome" placeholder="Ex: Sophia, Lucas, Mariana..." oninput="filtrarAlunos()">
+                        </div>
+                        <div class="form-group">
+                            <label for="buscaAlunoTurma">🏫 Turma:</label>
+                            <input type="text" id="buscaAlunoTurma" placeholder="Ex: 1A, 1B, 2A..." oninput="filtrarAlunos()">
+                        </div>
+                        <div class="form-group">
+                            <label for="buscaAlunoRestricao">⚠️ Situação da Dieta:</label>
+                            <select id="buscaAlunoRestricao" onchange="filtrarAlunos()" style="padding: 10px; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #ffffff; font-size: 13.5px; width: 100%;">
+                                <option value="todas">Todas as situações</option>
+                                <option value="com_restricao">⚠️ Com Restrição Alimentar</option>
+                                <option value="sem_restricao">✅ Sem Restrições (Dieta Livre)</option>
+                                <option value="com_laudo">📄 Com Laudo Médico Anexado</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="justify-content: flex-end;">
+                            <button type="button" class="btn btn-secondary" onclick="limparFiltrosAlunos()" style="padding: 10px 14px;" title="Limpar pesquisa">🧹 Limpar</button>
+                        </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Turma</th>
-                                <th>Restrição Alimentar</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaAlunos">
-                            <!-- Preenchido via JavaScript -->
-                        </tbody>
-                    </table>
+
+                <!-- CARD DA TABELA DE ALUNOS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📋 Alunos Encontrados</h2>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary" onclick="carregarAlunos()">🔄 Atualizar Lista</button>
+                            <button class="btn btn-gold" onclick="abrirNovoCadastroAluno()">➕ Cadastrar Aluno</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Turma</th>
+                                    <th>Restrição Alimentar</th>
+                                    <th>Carta Médica</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaAlunos">
+                                <!-- Preenchido via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-PASTA 2: FORMULÁRIO DE CADASTRO / EDIÇÃO -->
+            <div id="subtab-alunos-cadastro" class="subtab-panel" style="display: none;">
+                <div class="card" id="cardFormAluno">
+                    <div class="card-header">
+                        <h2 class="card-title" id="tituloFormAluno">➕ Cadastrar Novo Aluno</h2>
+                        <span id="badgeEdicaoAluno" style="display:none;" class="badge badge-warning">Modo Edição Ativo</span>
+                    </div>
+                    <form id="formAluno" onsubmit="salvarAluno(event)">
+                        <input type="hidden" id="alunoId">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="alunoNome">Nome Completo:</label>
+                                <input type="text" id="alunoNome" required placeholder="Ex: Maria Alice">
+                            </div>
+                            <div class="form-group">
+                                <label for="alunoTurma">Turma:</label>
+                                <input type="text" id="alunoTurma" required placeholder="Ex: 1A, 2B">
+                            </div>
+                            <div class="form-group">
+                                <label for="alunoRestricao">Restrição Alimentar (se houver):</label>
+                                <input type="text" id="alunoRestricao" placeholder="Ex: Intolerância a lactose, Glúten, Amendoim...">
+                            </div>
+                            <div class="form-group">
+                                <label for="alunoCartaMedica">📄 Carta / Laudo Médico (Opcional):</label>
+                                <input type="file" id="alunoCartaMedica" accept=".pdf,image/png,image/jpeg,image/jpg" style="padding: 7px; background: #ffffff;">
+                                <small style="color: var(--text-subtle); display: block; margin-top: 4px;">Aceita PDF, PNG ou JPG (máximo de 5MB)</small>
+                                <div id="infoCartaMedicaExistente" style="display: none; margin-top: 8px; padding: 8px 12px; background: #e0f2fe; border: 1px solid #7dd3fc; border-radius: 8px; font-size: 13px; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                                    <span>📄 <strong>Laudo Atual:</strong> <span id="nomeCartaMedicaAtual" style="color: #0369a1; font-weight: 600;"></span></span>
+                                    <div style="display: flex; gap: 6px;">
+                                        <a id="btnVerCartaMedicaAtual" href="#" target="_blank" class="btn btn-secondary" style="padding: 4px 10px; font-size: 12px; text-decoration: none;">👁️ Ver Laudo</a>
+                                        <button type="button" class="btn btn-danger" style="padding: 4px 10px; font-size: 12px;" onclick="removerCartaMedicaAtual()">🗑️ Remover</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="alunoFoto">📷 Foto do Aluno (Opcional):</label>
+                                <input type="file" id="alunoFoto" accept="image/png,image/jpeg,image/jpg,image/webp" style="padding: 7px; background: #ffffff;" onchange="aoSelecionarFotoAluno(event)">
+                                <small style="color: var(--text-subtle); display: block; margin-top: 4px;">Foto de identificação para segurança no prato (máx. 5MB)</small>
+                                <div id="infoFotoAlunoExistente" style="display: none; margin-top: 8px; padding: 10px 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; font-size: 13px; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 14px;">
+                                        <img id="imgFotoAlunoAtual" src="" style="width: 72px; height: 72px; border-radius: 10px; object-fit: cover; border: 3px solid #ef4444; box-shadow: 0 3px 8px rgba(239, 68, 68, 0.25);">
+                                        <div>
+                                            <span style="font-weight: 700; color: #991b1b; font-size: 14px; display: block;">Foto Atual Cadastrada</span>
+                                            <small style="color: #b91c1c; font-size: 11.5px;">Será exibida no alerta de restrição</small>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="removerFotoAlunoAtual()">🗑️ Remover Foto</button>
+                                </div>
+                                <div id="previewFotoAluno" style="display: none; margin-top: 10px; align-items: center; gap: 14px;">
+                                    <img id="imgPreviewFotoAluno" src="" style="width: 72px; height: 72px; border-radius: 10px; object-fit: cover; border: 3px solid var(--school-royal); box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);">
+                                    <span style="font-size: 13px; color: var(--text-muted); font-weight: 600;">Nova foto selecionada (será gravada ao salvar)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+                            <button type="submit" class="btn btn-gold" id="btnSalvarAluno">💾 Salvar Aluno</button>
+                            <button type="button" class="btn btn-secondary" id="btnCancelarEdicaoAluno" onclick="voltarParaConsultaAlunos()">⬅️ Voltar para a Consulta</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1087,12 +1480,22 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
-            document.getElementById(`tab-${tabName}`).classList.add('active');
-            event.target.classList.add('active');
+            const tabEl = document.getElementById(`tab-${tabName}`);
+            if (tabEl) tabEl.classList.add('active');
+
+            const navBtn = document.getElementById(`navBtn-${tabName}`);
+            if (navBtn) {
+                navBtn.classList.add('active');
+            } else if (window.event && window.event.currentTarget) {
+                window.event.currentTarget.classList.add('active');
+            }
 
             if (tabName === 'alunos') carregarAlunos();
             if (tabName === 'cardapios') carregarCardapios();
-            if (tabName === 'alertas') consultarAlertas();
+            if (tabName === 'alertas') {
+                atualizarBotoesSemana(document.getElementById('filtroData').value);
+                consultarAlertas();
+            }
         }
 
         function showToast(msg) {
@@ -1111,8 +1514,69 @@
             return dataISO;
         }
 
+        function formatarDataISO(ano, mes, dia) {
+            const m = String(mes).padStart(2, '0');
+            const d = String(dia).padStart(2, '0');
+            return `${ano}-${m}-${d}`;
+        }
+
+        function parseDataLocal(dataStr) {
+            if (!dataStr) return new Date();
+            const partes = dataStr.split('-');
+            if (partes.length === 3) {
+                return new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
+            }
+            return new Date();
+        }
+
+        /**
+         * Gera dinamicamente os botões de Segunda a Sexta-feira
+         * correspondentes à semana da data informada.
+         */
+        function atualizarBotoesSemana(dataReferenciaStr) {
+            const container = document.getElementById('containerBotoesSemana');
+            if (!container) return;
+
+            const dataRef = parseDataLocal(dataReferenciaStr);
+            const day = dataRef.getDay(); // 0=Domingo, 1=Segunda, ..., 6=Sábado
+            const diffParaSegunda = day === 0 ? -6 : 1 - day;
+
+            const segunda = new Date(dataRef.getFullYear(), dataRef.getMonth(), dataRef.getDate() + diffParaSegunda);
+            const nomesDias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+
+            let html = '';
+            for (let i = 0; i < 5; i++) {
+                const diaAtual = new Date(segunda.getFullYear(), segunda.getMonth(), segunda.getDate() + i);
+                const iso = formatarDataISO(diaAtual.getFullYear(), diaAtual.getMonth() + 1, diaAtual.getDate());
+                const diaFormatado = String(diaAtual.getDate()).padStart(2, '0');
+                const mesFormatado = String(diaAtual.getMonth() + 1).padStart(2, '0');
+                const isActive = (iso === dataReferenciaStr);
+
+                html += `<button type="button" class="shortcut-btn ${isActive ? 'active' : ''}" onclick="selecionarDataRapida('${iso}')">${nomesDias[i]} (${diaFormatado}/${mesFormatado})</button>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function aoMudarDataManual(novaData) {
+            atualizarBotoesSemana(novaData);
+            consultarAlertas();
+        }
+
         function selecionarDataRapida(dataISO) {
             document.getElementById('filtroData').value = dataISO;
+            atualizarBotoesSemana(dataISO);
+            consultarAlertas();
+        }
+
+        function mudarSemana(diasOffset) {
+            const input = document.getElementById('filtroData');
+            const dataAtual = parseDataLocal(input.value);
+            const novaData = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dataAtual.getDate() + diasOffset);
+            const isoNova = formatarDataISO(novaData.getFullYear(), novaData.getMonth() + 1, novaData.getDate());
+
+            input.value = isoNova;
+            atualizarBotoesSemana(isoNova);
             consultarAlertas();
         }
 
@@ -1157,6 +1621,11 @@
                                     🛡️ <strong>Opção de Prato Seguro cadastrado:</strong> ${data.pratoAlternativo}
                                 </p>
                             ` : ''}
+                            ${data.proteinaVegana ? `
+                                <p style="font-size: 13px; margin-top: 4px; color: #15803d; font-weight: 600;">
+                                    🌱 <strong>Opção de Proteína Vegana:</strong> ${data.proteinaVegana}
+                                </p>
+                            ` : ''}
                         </div>
                         <div style="text-align: right;">
                             <div class="alert-count" style="${data.totalAlunosEmAlerta === 0 ? 'color: var(--primary);' : ''}">${data.totalAlunosEmAlerta}</div>
@@ -1180,24 +1649,44 @@
                 } else {
                     html += `<h4 style="margin-bottom: 14px; font-size: 15px;">⚠️ Alunos com restrição que precisam de substituição no dia ${dataFormatada || data.diaDaSemana}:</h4>`;
                     data.alunosEmAlerta.forEach(aluno => {
+                        const fotoAlunoHtml = aluno.fotoUrl ? `
+                            <img src="${aluno.fotoUrl}" alt="${aluno.nome}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.parentElement.innerHTML='<span style=\\'font-weight:800; font-size:24px; color:#b91c1c;\\'>${obterIniciaisNome(aluno.nome)}</span>';">
+                        ` : `<span style="font-weight:800; font-size:24px; color:#b91c1c;">${obterIniciaisNome(aluno.nome)}</span>`;
+
                         html += `
-                            <div class="alert-card" style="border-left-color: #ef4444;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                    <strong>${aluno.nome} <span style="color: var(--text-muted); font-size: 13px;">(Turma: ${aluno.turma})</span></strong>
-                                    <span class="badge badge-danger">⚠️ ${aluno.restricao}</span>
+                            <div class="alert-card" style="border-left: 5px solid #ef4444; border-radius: 12px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06); padding: 18px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 14px;">
+                                    <div style="display: flex; align-items: center; gap: 16px;">
+                                        <!-- FOTO DO ALUNO COM MOLDURA DE SEGURANÇA EM DESTAQUE (MAIOR E QUADRADA) -->
+                                        <div style="width: 82px; height: 82px; min-width: 82px; border-radius: 12px; border: 3.5px solid #ef4444; overflow: hidden; background: #fee2e2; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35); flex-shrink: 0;">
+                                            ${fotoAlunoHtml}
+                                        </div>
+                                        <div>
+                                            <div style="font-size: 17px; font-weight: 800; color: var(--school-navy);">${aluno.nome}</div>
+                                            <span class="badge" style="background:#e0e7ff; color:#3730a3; font-size: 12px; padding: 3px 9px; font-weight: 700; margin-top: 4px; display: inline-block;">Turma ${aluno.turma}</span>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                                        <span class="badge badge-danger" style="font-size: 13px; padding: 5px 10px;">⚠️ ${aluno.restricao}</span>
+                                        ${aluno.temCartaMedica ? `
+                                            <a href="/api/alunos/${aluno.id}/carta-medica" target="_blank" class="badge" style="background:#eff6ff; color:#1d4ed8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-weight:600; padding:5px 10px; border-radius:6px; border:1px solid #bfdbfe; font-size:12px;">
+                                                📄 Ver Laudo
+                                            </a>
+                                        ` : ''}
+                                    </div>
                                 </div>
-                                <p style="font-size: 13px; color: #b91c1c; font-weight: 600; margin-bottom: 6px;">
+                                <p style="font-size: 13.5px; color: #b91c1c; font-weight: 700; margin-bottom: 6px;">
                                     🛑 ${aluno.motivoAlerta}
                                 </p>
                                 ${aluno.itemConflitante ? `
                                     <p style="font-size: 13px; color: #374151; margin-bottom: 8px;">
-                                        <strong>🍽️ Item com restrição:</strong> <span style="background: #fee2e2; padding: 2px 6px; border-radius: 4px; font-weight: 600;">${aluno.itemConflitante}</span>
+                                        <strong>🍽️ Item com restrição no cardápio de hoje:</strong> <span style="background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-weight: 700;">${aluno.itemConflitante}</span>
                                     </p>
                                 ` : ''}
                                 ${aluno.substituicaoSugerida ? `
-                                    <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 13px; color: #065f46;">
-                                        <strong>🔄 Substituição sugerida para ${aluno.nome.split(' ')[0]}:</strong><br>
-                                        ${aluno.substituicaoSugerida}
+                                    <div style="background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 8px; padding: 12px 16px; margin-top: 8px; font-size: 13px; color: #065f46;">
+                                        <strong>🛡️ Prato Seguro Sugerido para ${aluno.nome.split(' ')[0]}:</strong><br>
+                                        <span style="font-size: 13.5px; font-weight: 600;">${aluno.substituicaoSugerida}</span>
                                     </div>
                                 ` : ''}
                             </div>
@@ -1211,60 +1700,218 @@
             }
         }
 
-        // ======================= CARDÁPIOS =======================
+        // ======================= CARDÁPIOS POR MÊS =======================
         let cardapiosGlobais = [];
+        let mesSelecionadoCardapio = null; // número 1-12 ou 'TODOS'
+        let anoSelecionadoCardapio = 2026;
+        const NOMES_MESES = [
+            '', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        ];
 
         async function carregarCardapios() {
             const grid = document.getElementById('gridCardapios');
-            grid.innerHTML = '<p>Carregando cardápios...</p>';
+            grid.innerHTML = '<p style="color: var(--text-muted); font-weight: 500;">Carregando cardápios...</p>';
 
             try {
                 const res = await fetch('/api/cardapios');
                 const cardapios = await res.json();
 
-                if (cardapios.length === 0) {
-                    grid.innerHTML = '<p>Nenhum cardápio cadastrado.</p>';
+                if (!Array.isArray(cardapios) || cardapios.length === 0) {
+                    cardapiosGlobais = [];
+                    atualizarSubtituloMes(0);
+                    grid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #ffffff; border: 2px dashed var(--border); border-radius: 12px;">
+                            <span style="font-size: 40px;">🍽️</span>
+                            <h3 style="color: var(--school-navy); font-size: 17px; margin-top: 8px;">Nenhum cardápio cadastrado no sistema</h3>
+                            <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Cadastre seu primeiro cardápio utilizando o formulário acima.</p>
+                        </div>
+                    `;
                     return;
                 }
 
                 cardapios.sort((a, b) => (a.data || '').localeCompare(b.data || ''));
                 cardapiosGlobais = cardapios;
 
-                grid.innerHTML = cardapios.map(c => `
-                    <div class="cardapio-item">
-                        <div class="cardapio-day">
-                            <span>${c.diaDaSemana}</span>
-                            ${c.data ? `<span class="badge-date">${formatarDataBR(c.data)}</span>` : ''}
-                        </div>
-                        <div class="dish-row">
-                            <span class="dish-label">Prato Principal</span>
-                            <span class="dish-value">${c.pratoPrincipal}</span>
-                        </div>
-                        <div class="dish-row">
-                            <span class="dish-label">Guarnição</span>
-                            <span class="dish-value">${c.guarnicao || '—'}</span>
-                        </div>
-                        <div class="dish-row">
-                            <span class="dish-label">Sobremesa</span>
-                            <span class="dish-value">${c.sobremesa || '—'}</span>
-                        </div>
-                        <div class="alergenos-box">
-                            <strong>⚠️ Alérgenos:</strong> ${c.alergenos || 'Nenhum informado'}
-                        </div>
-                        ${c.pratoAlternativo ? `
-                            <div style="margin-top: 10px; font-size: 12px; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px;">
-                                <strong>🛡️ Opção Segura:</strong> ${c.pratoAlternativo}
-                            </div>
-                        ` : ''}
-                        <div style="display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end;">
-                            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoCardapio(${c.id})">✏️ Editar</button>
-                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarCardapio(${c.id})">🗑️ Excluir</button>
-                        </div>
-                    </div>
-                `).join('');
+                // Se o mês ainda não foi definido pelo usuário:
+                if (mesSelecionadoCardapio === null) {
+                    const hoje = new Date();
+                    const mesAtual = hoje.getMonth() + 1;
+                    const anoAtual = hoje.getFullYear();
+
+                    const temNoMesAtual = cardapiosGlobais.some(c => {
+                        if (!c.data) return false;
+                        const partes = c.data.split('-');
+                        return parseInt(partes[0]) === anoAtual && parseInt(partes[1]) === mesAtual;
+                    });
+
+                    if (temNoMesAtual) {
+                        mesSelecionadoCardapio = mesAtual;
+                        anoSelecionadoCardapio = anoAtual;
+                    } else {
+                        // Seleciona o mês com cardápios mais recentes (ex: Setembro/2026)
+                        const ultimoComData = [...cardapiosGlobais].reverse().find(c => c.data);
+                        if (ultimoComData && ultimoComData.data) {
+                            const partes = ultimoComData.data.split('-');
+                            anoSelecionadoCardapio = parseInt(partes[0]);
+                            mesSelecionadoCardapio = parseInt(partes[1]);
+                        } else {
+                            mesSelecionadoCardapio = 9;
+                            anoSelecionadoCardapio = 2026;
+                        }
+                    }
+
+                    const selMes = document.getElementById('filtroMesCardapio');
+                    const selAno = document.getElementById('filtroAnoCardapio');
+                    if (selMes) selMes.value = String(mesSelecionadoCardapio);
+                    if (selAno) selAno.value = String(anoSelecionadoCardapio);
+                }
+
+                renderizarCardapiosFiltrados();
+
             } catch (err) {
-                grid.innerHTML = '<p style="color: red;">Erro ao carregar cardápios.</p>';
+                console.error(err);
+                grid.innerHTML = '<p style="color: red; font-weight: 600;">❌ Erro ao carregar cardápios do servidor.</p>';
             }
+        }
+
+        function selecionarMes(mes, ano) {
+            mesSelecionadoCardapio = mes;
+            if (ano) anoSelecionadoCardapio = ano;
+
+            const selMes = document.getElementById('filtroMesCardapio');
+            const selAno = document.getElementById('filtroAnoCardapio');
+            if (selMes) selMes.value = String(mes);
+            if (selAno) selAno.value = String(anoSelecionadoCardapio);
+
+            renderizarCardapiosFiltrados();
+        }
+
+        function aoTrocarFiltroMes() {
+            const selMes = document.getElementById('filtroMesCardapio').value;
+            const selAno = parseInt(document.getElementById('filtroAnoCardapio').value);
+
+            anoSelecionadoCardapio = selAno;
+            if (selMes === 'TODOS') {
+                mesSelecionadoCardapio = 'TODOS';
+            } else {
+                mesSelecionadoCardapio = parseInt(selMes);
+            }
+
+            renderizarCardapiosFiltrados();
+        }
+
+        function navegarMesRelativo(delta) {
+            if (mesSelecionadoCardapio === 'TODOS') {
+                mesSelecionadoCardapio = 9;
+            }
+
+            let novoMes = mesSelecionadoCardapio + delta;
+            let novoAno = anoSelecionadoCardapio;
+
+            if (novoMes > 12) {
+                novoMes = 1;
+                novoAno++;
+            } else if (novoMes < 1) {
+                novoMes = 12;
+                novoAno--;
+            }
+
+            selecionarMes(novoMes, novoAno);
+        }
+
+        function atualizarSubtituloMes(total) {
+            const subtitulo = document.getElementById('subtituloMesCardapio');
+            if (!subtitulo) return;
+
+            if (mesSelecionadoCardapio === 'TODOS') {
+                subtitulo.innerText = `Exibindo todos os meses (${total} cardápio${total === 1 ? '' : 's'} cadastrado${total === 1 ? '' : 's'})`;
+            } else {
+                const nomeMes = NOMES_MESES[mesSelecionadoCardapio] || '';
+                subtitulo.innerText = `Exibindo: ${nomeMes} de ${anoSelecionadoCardapio} (${total} cardápio${total === 1 ? '' : 's'} cadastrado${total === 1 ? '' : 's'})`;
+            }
+        }
+
+        function renderizarCardapiosFiltrados() {
+            const grid = document.getElementById('gridCardapios');
+            let filtrados = [];
+
+            if (mesSelecionadoCardapio === 'TODOS') {
+                filtrados = cardapiosGlobais;
+            } else {
+                filtrados = cardapiosGlobais.filter(c => {
+                    if (!c.data) return false;
+                    const partes = c.data.split('-');
+                    return parseInt(partes[0]) === anoSelecionadoCardapio && parseInt(partes[1]) === mesSelecionadoCardapio;
+                });
+            }
+
+            atualizarSubtituloMes(filtrados.length);
+
+            if (filtrados.length === 0) {
+                const nomeMes = NOMES_MESES[mesSelecionadoCardapio] || 'selecionado';
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; background: #ffffff; border: 2px dashed var(--border); border-radius: 12px; margin: 8px 0;">
+                        <div style="font-size: 42px; margin-bottom: 8px;">🍽️</div>
+                        <h3 style="color: var(--school-navy); font-size: 18px; font-weight: 700;">Nenhum cardápio cadastrado para ${nomeMes} de ${anoSelecionadoCardapio}</h3>
+                        <p style="color: var(--text-muted); font-size: 13.5px; max-width: 480px; margin: 8px auto 18px auto;">
+                            Ainda não há refeições cadastradas para este mês no calendário escolar. Você pode planejar os pratos agora mesmo no formulário acima.
+                        </p>
+                        <button type="button" class="btn btn-gold" onclick="prepararCadastroParaMesSelecionado()">
+                            ➕ Cadastrar Cardápio em ${nomeMes}
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtrados.map(c => `
+                <div class="cardapio-item">
+                    <div class="cardapio-day">
+                        <span>${c.diaDaSemana}</span>
+                        ${c.data ? `<span class="badge-date">${formatarDataBR(c.data)}</span>` : ''}
+                    </div>
+                    <div class="dish-row">
+                        <span class="dish-label">Prato Principal</span>
+                        <span class="dish-value">${c.pratoPrincipal}</span>
+                    </div>
+                    <div class="dish-row">
+                        <span class="dish-label">Guarnição</span>
+                        <span class="dish-value">${c.guarnicao || '—'}</span>
+                    </div>
+                    <div class="dish-row">
+                        <span class="dish-label">Sobremesa</span>
+                        <span class="dish-value">${c.sobremesa || '—'}</span>
+                    </div>
+                    <div class="alergenos-box">
+                        <strong>⚠️ Alérgenos:</strong> ${c.alergenos || 'Nenhum informado'}
+                    </div>
+                    ${c.pratoAlternativo ? `
+                        <div style="margin-top: 10px; font-size: 12px; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px;">
+                            <strong>🛡️ Opção Segura:</strong> ${c.pratoAlternativo}
+                        </div>
+                    ` : ''}
+                    ${c.proteinaVegana ? `
+                        <div style="margin-top: 6px; font-size: 12px; color: #166534; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 10px; border-radius: 6px;">
+                            <strong>🌱 Proteína Vegana:</strong> ${c.proteinaVegana}
+                        </div>
+                    ` : ''}
+                    <div style="display: flex; gap: 8px; margin-top: 14px; justify-content: flex-end;">
+                        <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoCardapio(${c.id})">✏️ Editar</button>
+                        <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarCardapio(${c.id})">🗑️ Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function prepararCadastroParaMesSelecionado() {
+            if (mesSelecionadoCardapio && mesSelecionadoCardapio !== 'TODOS') {
+                const m = String(mesSelecionadoCardapio).padStart(2, '0');
+                const dataSugerida = `${anoSelecionadoCardapio}-${m}-01`;
+                document.getElementById('cardapioData').value = dataSugerida;
+            }
+            document.getElementById('cardFormCardapio').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('cardapioPrato').focus();
         }
 
         function prepararEdicaoCardapio(id) {
@@ -1278,6 +1925,7 @@
             document.getElementById('cardapioSobremesa').value = cardapio.sobremesa || '';
             document.getElementById('cardapioAlergenos').value = cardapio.alergenos || '';
             document.getElementById('cardapioPratoAlternativo').value = cardapio.pratoAlternativo || '';
+            document.getElementById('cardapioProteinaVegana').value = cardapio.proteinaVegana || '';
 
             document.getElementById('tituloFormCardapio').innerText = `✏️ Editando Cardápio (${cardapio.diaDaSemana})`;
             document.getElementById('badgeEdicaoCardapio').style.display = 'inline-block';
@@ -1290,6 +1938,7 @@
         function cancelarEdicaoCardapio() {
             document.getElementById('formCardapio').reset();
             document.getElementById('cardapioId').value = '';
+            document.getElementById('cardapioProteinaVegana').value = '';
             document.getElementById('tituloFormCardapio').innerText = '➕ Cadastrar Cardápio no Calendário';
             document.getElementById('badgeEdicaoCardapio').style.display = 'none';
             document.getElementById('btnSalvarCardapio').innerText = '💾 Salvar no Calendário';
@@ -1305,8 +1954,9 @@
             const sobremesa = document.getElementById('cardapioSobremesa').value;
             const alergenos = document.getElementById('cardapioAlergenos').value;
             const pratoAlternativo = document.getElementById('cardapioPratoAlternativo').value;
+            const proteinaVegana = document.getElementById('cardapioProteinaVegana').value;
 
-            const payload = { data, pratoPrincipal, guarnicao, sobremesa, alergenos, pratoAlternativo };
+            const payload = { data, pratoPrincipal, guarnicao, sobremesa, alergenos, pratoAlternativo, proteinaVegana };
 
             try {
                 let res;
@@ -1326,6 +1976,20 @@
 
                 if (res.ok) {
                     showToast(id ? '✅ Cardápio atualizado com sucesso!' : '✅ Cardápio agendado no calendário!');
+
+                    // Sincroniza o mês exibido com a data do cardápio recém-salvo
+                    if (data) {
+                        const partes = data.split('-');
+                        if (partes.length === 3) {
+                            anoSelecionadoCardapio = parseInt(partes[0]);
+                            mesSelecionadoCardapio = parseInt(partes[1]);
+                            const selMes = document.getElementById('filtroMesCardapio');
+                            const selAno = document.getElementById('filtroAnoCardapio');
+                            if (selMes) selMes.value = String(mesSelecionadoCardapio);
+                            if (selAno) selAno.value = String(anoSelecionadoCardapio);
+                        }
+                    }
+
                     cancelarEdicaoCardapio();
                     carregarCardapios();
                 } else {
@@ -1352,45 +2016,194 @@
             }
         }
 
-        // ======================= ALUNOS =======================
+        // ======================= ALUNOS (COM SUB-ABAS E BUSCA DINÂMICA) =======================
         let alunosGlobais = [];
+
+        function switchSubTabAlunos(aba) {
+            const painelConsulta = document.getElementById('subtab-alunos-consulta');
+            const painelCadastro = document.getElementById('subtab-alunos-cadastro');
+            const btnConsulta = document.getElementById('subtabBtnConsulta');
+            const btnCadastro = document.getElementById('subtabBtnCadastro');
+
+            if (aba === 'cadastro') {
+                painelConsulta.style.display = 'none';
+                painelCadastro.style.display = 'block';
+                btnConsulta.classList.remove('active');
+                btnCadastro.classList.add('active');
+            } else {
+                painelCadastro.style.display = 'none';
+                painelConsulta.style.display = 'block';
+                btnCadastro.classList.remove('active');
+                btnConsulta.classList.add('active');
+            }
+        }
+
+        function abrirNovoCadastroAluno() {
+            cancelarEdicaoAluno();
+            switchSubTabAlunos('cadastro');
+            const inputNome = document.getElementById('alunoNome');
+            if (inputNome) inputNome.focus();
+        }
+
+        function voltarParaConsultaAlunos() {
+            cancelarEdicaoAluno();
+            switchSubTabAlunos('consulta');
+        }
 
         async function carregarAlunos() {
             const tbody = document.getElementById('tabelaAlunos');
-            tbody.innerHTML = '<tr><td colspan="5">Carregando alunos...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px;">Carregando alunos...</td></tr>';
 
             try {
                 const res = await fetch('/api/alunos');
+                if (!res.ok) throw new Error('Erro ao carregar alunos');
                 const alunos = await res.json();
+                alunosGlobais = alunos || [];
+                filtrarAlunos();
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="6" style="color: red; text-align: center; padding: 20px;">Erro ao carregar alunos. Verifique a conexão com o servidor.</td></tr>';
+            }
+        }
 
-                if (alunos.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5">Nenhum aluno cadastrado.</td></tr>';
-                    return;
+        function filtrarAlunos() {
+            const termoNome = (document.getElementById('buscaAlunoNome')?.value || '').trim().toLowerCase();
+            const termoTurma = (document.getElementById('buscaAlunoTurma')?.value || '').trim().toLowerCase();
+            const filtroRestricao = document.getElementById('buscaAlunoRestricao')?.value || 'todas';
+
+            const filtrados = alunosGlobais.filter(a => {
+                const nomeMatch = !termoNome || (a.nome && a.nome.toLowerCase().includes(termoNome));
+                const turmaMatch = !termoTurma || (a.turma && a.turma.toLowerCase().includes(termoTurma));
+
+                let restricaoMatch = true;
+                const temRestricao = a.restricao && a.restricao.trim() !== '';
+                const temLaudo = !!a.cartaMedicaArquivo;
+
+                if (filtroRestricao === 'com_restricao') {
+                    restricaoMatch = temRestricao;
+                } else if (filtroRestricao === 'sem_restricao') {
+                    restricaoMatch = !temRestricao;
+                } else if (filtroRestricao === 'com_laudo') {
+                    restricaoMatch = temLaudo;
                 }
 
-                alunosGlobais = alunos;
+                return nomeMatch && turmaMatch && restricaoMatch;
+            });
 
-                tbody.innerHTML = alunos.map(a => `
+            // Atualiza badge de contagem
+            const badgeContador = document.getElementById('contadorAlunosEncontrados');
+            if (badgeContador) {
+                if (alunosGlobais.length === 0) {
+                    badgeContador.innerText = 'Nenhum aluno cadastrado';
+                } else {
+                    badgeContador.innerText = `Mostrando ${filtrados.length} de ${alunosGlobais.length} aluno(s)`;
+                }
+            }
+
+            renderizarTabelaAlunos(filtrados);
+        }
+
+        function limparFiltrosAlunos() {
+            const inputNome = document.getElementById('buscaAlunoNome');
+            const inputTurma = document.getElementById('buscaAlunoTurma');
+            const selectRestricao = document.getElementById('buscaAlunoRestricao');
+            if (inputNome) inputNome.value = '';
+            if (inputTurma) inputTurma.value = '';
+            if (selectRestricao) selectRestricao.value = 'todas';
+            filtrarAlunos();
+            if (inputNome) inputNome.focus();
+        }
+
+        function obterIniciaisNome(nome) {
+            if (!nome) return 'AL';
+            const partes = nome.trim().split(/\s+/);
+            let inits = partes[0] ? partes[0][0] : 'A';
+            if (partes.length > 1) inits += partes[partes.length - 1][0];
+            return inits.toUpperCase();
+        }
+
+        function aoSelecionarFotoAluno(event) {
+            const file = event.target.files[0];
+            const previewBox = document.getElementById('previewFotoAluno');
+            const previewImg = document.getElementById('imgPreviewFotoAluno');
+            if (!file) {
+                if (previewBox) previewBox.style.display = 'none';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (previewImg) previewImg.src = e.target.result;
+                if (previewBox) previewBox.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function removerFotoAlunoAtual() {
+            const id = document.getElementById('alunoId').value;
+            if (!id) return;
+            if (!confirm('Deseja realmente remover a foto deste aluno?')) return;
+
+            try {
+                const res = await fetch(`/api/alunos/${id}/foto`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('✅ Foto do aluno removida com sucesso!');
+                    document.getElementById('infoFotoAlunoExistente').style.display = 'none';
+                    document.getElementById('alunoFoto').value = '';
+                    await carregarAlunos();
+                    consultarAlertas();
+                } else {
+                    showToast('❌ Erro ao remover foto do aluno.');
+                }
+            } catch (err) {
+                showToast('❌ Falha na conexão com o servidor.');
+            }
+        }
+
+        function renderizarTabelaAlunos(alunos) {
+            const tbody = document.getElementById('tabelaAlunos');
+            if (!tbody) return;
+
+            if (alunos.length === 0) {
+                tbody.innerHTML = `
                     <tr>
-                        <td>#${a.id}</td>
-                        <td><strong>${a.nome}</strong></td>
-                        <td><span class="badge" style="background:#e0e7ff; color:#3730a3;">${a.turma}</span></td>
-                        <td>
-                            ${a.restricao && a.restricao.trim() !== '' 
-                                ? `<span class="badge badge-danger">⚠️ ${a.restricao}</span>` 
-                                : `<span class="badge badge-safe">Sem restrições</span>`}
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 6px;">
-                                <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoAluno(${a.id})">✏️ Editar</button>
-                                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarAluno(${a.id})">Excluir</button>
-                            </div>
+                        <td colspan="6" style="text-align: center; padding: 28px; color: var(--text-muted);">
+                            🔍 Nenhum aluno encontrado com os filtros atuais.
+                            <br><small style="color: var(--text-subtle);">Tente buscar por outro termo ou clique em "🧹 Limpar" para ver todos.</small>
                         </td>
                     </tr>
-                `).join('');
-            } catch (err) {
-                tbody.innerHTML = '<tr><td colspan="5" style="color: red;">Erro ao carregar alunos.</td></tr>';
+                `;
+                return;
             }
+
+            tbody.innerHTML = alunos.map(a => `
+                <tr>
+                    <td>#${a.id}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 42px; height: 42px; min-width: 42px; border-radius: 8px; overflow: hidden; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #475569; border: 2px solid ${a.restricao && a.restricao.trim() !== '' ? '#ef4444' : '#cbd5e1'}; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                                ${a.fotoUrl ? `<img src="${a.fotoUrl}" alt="${a.nome}" style="width:100%; height:100%; object-fit: cover; display:block;" onerror="this.parentElement.innerHTML='${obterIniciaisNome(a.nome)}';">` : obterIniciaisNome(a.nome)}
+                            </div>
+                            <strong>${a.nome}</strong>
+                        </div>
+                    </td>
+                    <td><span class="badge" style="background:#e0e7ff; color:#3730a3; font-weight:700;">${a.turma}</span></td>
+                    <td>
+                        ${a.restricao && a.restricao.trim() !== '' 
+                            ? `<span class="badge badge-danger">⚠️ ${a.restricao}</span>` 
+                            : `<span class="badge badge-safe">Sem restrições</span>`}
+                    </td>
+                    <td>
+                        ${a.cartaMedicaArquivo 
+                            ? `<a href="/api/alunos/${a.id}/carta-medica" target="_blank" class="badge" style="background:#eff6ff; color:#1d4ed8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-weight:600; padding:4px 8px; border-radius:6px; border:1px solid #bfdbfe; font-size:12px;">📄 Ver Laudo</a>`
+                            : `<span style="color:#94a3b8; font-size:12px;">Sem anexo</span>`}
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="prepararEdicaoAluno(${a.id})">✏️ Editar</button>
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 12px;" onclick="deletarAluno(${a.id})">Excluir</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
         }
 
         function prepararEdicaoAluno(id) {
@@ -1402,21 +2215,72 @@
             document.getElementById('alunoTurma').value = aluno.turma || '';
             document.getElementById('alunoRestricao').value = aluno.restricao || '';
 
-            document.getElementById('tituloFormAluno').innerText = `✏️ Editando Aluno #${aluno.id}`;
+            // Limpa os campos de novos arquivos
+            document.getElementById('alunoCartaMedica').value = '';
+            document.getElementById('alunoFoto').value = '';
+            const previewFoto = document.getElementById('previewFotoAluno');
+            if (previewFoto) previewFoto.style.display = 'none';
+
+            // Se o aluno tiver uma carta anexada, exibe o painel de visualização/remoção
+            const infoBox = document.getElementById('infoCartaMedicaExistente');
+            if (aluno.cartaMedicaArquivo) {
+                infoBox.style.display = 'flex';
+                document.getElementById('nomeCartaMedicaAtual').innerText = aluno.cartaMedicaNome || 'Carta Médica Anexada';
+                document.getElementById('btnVerCartaMedicaAtual').href = `/api/alunos/${aluno.id}/carta-medica`;
+            } else {
+                infoBox.style.display = 'none';
+            }
+
+            // Se o aluno tiver foto cadastrada, exibe o painel de visualização/remoção da foto
+            const infoFoto = document.getElementById('infoFotoAlunoExistente');
+            if (aluno.fotoUrl) {
+                infoFoto.style.display = 'flex';
+                document.getElementById('imgFotoAlunoAtual').src = aluno.fotoUrl + '?v=' + Date.now();
+            } else {
+                infoFoto.style.display = 'none';
+            }
+
+            document.getElementById('tituloFormAluno').innerText = `✏️ Editando Aluno: ${aluno.nome} (#${aluno.id})`;
             document.getElementById('badgeEdicaoAluno').style.display = 'inline-block';
             document.getElementById('btnSalvarAluno').innerText = '💾 Atualizar Aluno';
-            document.getElementById('btnCancelarEdicaoAluno').style.display = 'inline-flex';
 
+            // Alterna automaticamente para a aba de cadastro/edição
+            switchSubTabAlunos('cadastro');
             document.getElementById('cardFormAluno').scrollIntoView({ behavior: 'smooth' });
         }
 
         function cancelarEdicaoAluno() {
             document.getElementById('formAluno').reset();
             document.getElementById('alunoId').value = '';
+            document.getElementById('alunoCartaMedica').value = '';
+            document.getElementById('alunoFoto').value = '';
+            document.getElementById('infoCartaMedicaExistente').style.display = 'none';
+            document.getElementById('infoFotoAlunoExistente').style.display = 'none';
+            const previewFoto = document.getElementById('previewFotoAluno');
+            if (previewFoto) previewFoto.style.display = 'none';
             document.getElementById('tituloFormAluno').innerText = '➕ Cadastrar Novo Aluno';
             document.getElementById('badgeEdicaoAluno').style.display = 'none';
             document.getElementById('btnSalvarAluno').innerText = '💾 Salvar Aluno';
-            document.getElementById('btnCancelarEdicaoAluno').style.display = 'none';
+        }
+
+        async function removerCartaMedicaAtual() {
+            const id = document.getElementById('alunoId').value;
+            if (!id) return;
+            if (!confirm('Deseja realmente remover o laudo médico anexado deste aluno?')) return;
+
+            try {
+                const res = await fetch(`/api/alunos/${id}/carta-medica`, { method: 'DELETE' });
+                if (res.ok) {
+                    showToast('✅ Carta médica removida com sucesso!');
+                    document.getElementById('infoCartaMedicaExistente').style.display = 'none';
+                    document.getElementById('alunoCartaMedica').value = '';
+                    await carregarAlunos();
+                } else {
+                    showToast('❌ Erro ao remover carta médica.');
+                }
+            } catch (err) {
+                showToast('❌ Falha na conexão com o servidor.');
+            }
         }
 
         async function salvarAluno(event) {
@@ -1425,6 +2289,22 @@
             const nome = document.getElementById('alunoNome').value;
             const turma = document.getElementById('alunoTurma').value;
             const restricao = document.getElementById('alunoRestricao').value;
+
+            const fileInput = document.getElementById('alunoCartaMedica');
+            const file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+
+            const fotoInput = document.getElementById('alunoFoto');
+            const fotoFile = fotoInput && fotoInput.files && fotoInput.files[0] ? fotoInput.files[0] : null;
+
+            // Validação de tamanho no cliente (máximo 5MB)
+            if (file && file.size > 5 * 1024 * 1024) {
+                showToast('❌ O laudo médico excede o limite máximo permitido de 5MB.');
+                return;
+            }
+            if (fotoFile && fotoFile.size > 5 * 1024 * 1024) {
+                showToast('❌ A foto do aluno excede o limite máximo permitido de 5MB.');
+                return;
+            }
 
             const payload = { nome, turma, restricao };
 
@@ -1447,9 +2327,43 @@
                 }
 
                 if (res.ok) {
+                    const alunoSalvo = await res.json();
+                    const alunoIdFinal = id || alunoSalvo.id;
+
+                    // Upload da carta médica se houver
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append('arquivo', file);
+
+                        const uploadRes = await fetch(`/api/alunos/${alunoIdFinal}/carta-medica`, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!uploadRes.ok) {
+                            showToast('⚠️ Aluno salvo, mas ocorreu um erro no envio da carta médica.');
+                        }
+                    }
+
+                    // Upload da foto do aluno se houver
+                    if (fotoFile) {
+                        const fotoFormData = new FormData();
+                        fotoFormData.append('foto', fotoFile);
+
+                        const uploadFotoRes = await fetch(`/api/alunos/${alunoIdFinal}/foto`, {
+                            method: 'POST',
+                            body: fotoFormData
+                        });
+
+                        if (!uploadFotoRes.ok) {
+                            showToast('⚠️ Aluno salvo, mas ocorreu um erro no envio da foto.');
+                        }
+                    }
+
                     showToast(id ? '✅ Aluno atualizado com sucesso!' : '✅ Aluno cadastrado com sucesso!');
-                    cancelarEdicaoAluno();
-                    carregarAlunos();
+                    voltarParaConsultaAlunos();
+                    await carregarAlunos();
+                    consultarAlertas();
                 } else {
                     showToast('❌ Erro ao salvar dados do aluno.');
                 }
@@ -1465,7 +2379,10 @@
                 const res = await fetch(`/api/alunos/${id}`, { method: 'DELETE' });
                 if (res.ok) {
                     showToast('🗑️ Aluno removido com sucesso!');
-                    carregarAlunos();
+                    await carregarAlunos();
+                    consultarAlertas();
+                } else {
+                    showToast('❌ Erro ao deletar aluno.');
                 }
             } catch (err) {
                 showToast('❌ Erro ao deletar aluno.');
@@ -1496,8 +2413,11 @@
                     document.getElementById('userDisplayName').innerText = user.nome || user.username;
                     document.getElementById('userDisplayRole').innerText = user.cargo || 'Usuário Autenticado';
 
+                    atualizarFotoHeader(user);
+
                     loginScreen.style.display = 'none';
                     appContainer.style.display = 'flex';
+                    atualizarBotoesSemana(document.getElementById('filtroData').value);
                     consultarAlertas();
                     return;
                 } catch (e) {
@@ -1512,6 +2432,98 @@
                 const usernameInput = document.getElementById('loginUsername');
                 if (usernameInput) usernameInput.focus();
             }, 100);
+        }
+
+        function atualizarFotoHeader(user) {
+            const img = document.getElementById('userHeaderImg');
+            const initials = document.getElementById('userHeaderInitials');
+            if (!img || !initials) return;
+
+            const nomeOuUser = (user && (user.nome || user.username)) ? (user.nome || user.username) : 'NutriKids';
+            const partes = nomeOuUser.trim().split(/\s+/);
+            let inits = partes[0] ? partes[0][0] : 'N';
+            if (partes.length > 1) inits += partes[partes.length - 1][0];
+            initials.innerText = inits.toUpperCase();
+
+            const username = user ? (user.username || 'default') : 'default';
+            const fotoSalvaLocal = localStorage.getItem('nutrikids_user_avatar_' + username);
+            const fotoFinal = (user && user.fotoUrl) ? user.fotoUrl : fotoSalvaLocal;
+
+            if (fotoFinal) {
+                img.src = fotoFinal;
+                img.style.display = 'block';
+                initials.style.display = 'none';
+            } else {
+                img.style.display = 'none';
+                initials.style.display = 'block';
+            }
+        }
+
+        function abrirSeletorFotoPerfil() {
+            const input = document.getElementById('inputFotoPerfilHeader');
+            if (input) input.click();
+        }
+
+        async function aoTrocarFotoPerfilHeader(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('⚠️ A imagem deve ter no máximo 5MB.');
+                return;
+            }
+
+            const storedUser = sessionStorage.getItem('nutrikids_auth');
+            let username = 'admin';
+            let currentUser = null;
+            if (storedUser) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    username = currentUser.username || 'admin';
+                } catch (err) {}
+            }
+
+            // Preview imediato
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImg = document.getElementById('userHeaderImg');
+                const initials = document.getElementById('userHeaderInitials');
+                if (previewImg) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                }
+                if (initials) initials.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+
+            // Upload real para o backend Spring Boot (salva no disco e no PostgreSQL tb_usuarios)
+            const formData = new FormData();
+            formData.append('foto', file);
+
+            try {
+                showToast('⏳ Gravando foto no servidor e banco de dados...');
+                const res = await fetch(`/api/usuarios/${encodeURIComponent(username)}/foto`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (res.ok) {
+                    const usuarioAtualizado = await res.json();
+                    const fotoUrlComTimestamp = `${usuarioAtualizado.fotoUrl}?v=${Date.now()}`;
+                    
+                    if (currentUser) {
+                        currentUser.fotoUrl = fotoUrlComTimestamp;
+                        sessionStorage.setItem('nutrikids_auth', JSON.stringify(currentUser));
+                    }
+                    localStorage.setItem('nutrikids_user_avatar_' + username, fotoUrlComTimestamp);
+                    atualizarFotoHeader(currentUser || usuarioAtualizado);
+                    showToast('✅ Foto salva com sucesso!');
+                } else {
+                    showToast('⚠️ Erro ao persistir foto no servidor.');
+                }
+            } catch (err) {
+                showToast('⚠️ Falha na conexão com o servidor.');
+            }
         }
 
         async function fazerLogin(event) {
@@ -1572,9 +2584,199 @@
             }
         }
 
+        // ======================= FALE COM A NUTRICIONISTA =======================
+        const EMAIL_NUTRI_STORAGE_KEY = 'nutrikids_email_nutricionista';
+
+        function abrirModalFaleNutri() {
+            const modal = document.getElementById('modalFaleNutri');
+            if (!modal) return;
+
+            const emailSalvo = localStorage.getItem(EMAIL_NUTRI_STORAGE_KEY) || 'yasmin.nutri@escola.com';
+            const inputDestino = document.getElementById('inputEmailDestinoNutri');
+            if (inputDestino) inputDestino.value = emailSalvo;
+
+            const stored = sessionStorage.getItem('nutrikids_auth');
+            if (stored) {
+                try {
+                    const u = JSON.parse(stored);
+                    const inputNome = document.getElementById('nutriRemetenteNome');
+                    if (inputNome && !inputNome.value) inputNome.value = u.nome || u.username || '';
+                } catch(e) {}
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function fecharModalFaleNutri() {
+            const modal = document.getElementById('modalFaleNutri');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function salvarEmailNutriNoStorage(novoEmail) {
+            if (novoEmail && novoEmail.trim()) {
+                localStorage.setItem(EMAIL_NUTRI_STORAGE_KEY, novoEmail.trim());
+                showToast('💾 E-mail da nutricionista atualizado!');
+            }
+        }
+
+        function obterDadosFormFaleNutri() {
+            const destino = (document.getElementById('inputEmailDestinoNutri').value || '').trim();
+            const nome = (document.getElementById('nutriRemetenteNome').value || '').trim();
+            const emailRemetente = (document.getElementById('nutriRemetenteEmail').value || '').trim();
+            const assunto = document.getElementById('nutriAssunto').value;
+            const mensagem = (document.getElementById('nutriMensagem').value || '').trim();
+
+            if (!destino) {
+                alert('Por favor, informe o e-mail da nutricionista (destinatário).');
+                return null;
+            }
+            if (!nome) {
+                alert('Por favor, digite o seu nome.');
+                document.getElementById('nutriRemetenteNome').focus();
+                return null;
+            }
+            if (!emailRemetente) {
+                alert('Por favor, digite o seu e-mail de contato.');
+                document.getElementById('nutriRemetenteEmail').focus();
+                return null;
+            }
+            if (!mensagem) {
+                alert('Por favor, escreva a sua mensagem ou dúvida.');
+                document.getElementById('nutriMensagem').focus();
+                return null;
+            }
+
+            salvarEmailNutriNoStorage(destino);
+            return { destino, nome, emailRemetente, assunto, mensagem };
+        }
+
+        function abrirNoGmailClient() {
+            const dados = obterDadosFormFaleNutri();
+            if (!dados) return;
+
+            const assuntoCompleto = `[NutriKids] ${dados.assunto} - ${dados.nome}`;
+            const corpoFormatado = 
+                `Olá, Nutricionista!\n\n` +
+                `Nome do Solicitante: ${dados.nome}\n` +
+                `E-mail para Resposta: ${dados.emailRemetente}\n` +
+                `Assunto: ${dados.assunto}\n\n` +
+                `Mensagem / Dúvida:\n${dados.mensagem}\n\n` +
+                `---\nMensagem enviada através do NutriKids Escolar`;
+
+            // Abre diretamente a tela de composição oficial do Gmail no navegador
+            const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(dados.destino)}&su=${encodeURIComponent(assuntoCompleto)}&body=${encodeURIComponent(corpoFormatado)}`;
+            
+            const win = window.open(gmailWebUrl, '_blank');
+            if (!win) {
+                window.location.href = `mailto:${encodeURIComponent(dados.destino)}?subject=${encodeURIComponent(assuntoCompleto)}&body=${encodeURIComponent(corpoFormatado)}`;
+            }
+
+            showToast('📬 Abrindo a tela do Gmail com a mensagem pronta para enviar!');
+            fecharModalFaleNutri();
+        }
+
+        async function enviarViaSistemaBackend() {
+            const dados = obterDadosFormFaleNutri();
+            if (!dados) return;
+
+            try {
+                showToast('🚀 Enviando mensagem...');
+                const res = await fetch('/api/contato-nutricionista', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                if (res.ok) {
+                    showToast('✅ Mensagem enviada para a nutricionista com sucesso!');
+                    document.getElementById('nutriMensagem').value = '';
+                    fecharModalFaleNutri();
+                } else {
+                    showToast('ℹ️ Abrindo no seu cliente de e-mail...');
+                    abrirNoGmailClient();
+                }
+            } catch (err) {
+                abrirNoGmailClient();
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             checkAuth();
         });
     </script>
+
+    <!-- MODAL FALE COM A NUTRICIONISTA (FECHA APENAS NO BOTÃO X) -->
+    <div id="modalFaleNutri" class="modal-nutri-overlay">
+        <div class="modal-nutri-card">
+            <div class="modal-nutri-header">
+                <div>
+                    <h3 style="font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                        💬 Fale com a Nutricionista
+                    </h3>
+                    <p style="font-size: 12.5px; opacity: 0.85; margin-top: 3px;">
+                        Envie suas dúvidas diretamente para o e-mail da nutricionista responsável
+                    </p>
+                </div>
+                <button type="button" onclick="fecharModalFaleNutri()" title="Fechar janela" style="background: rgba(255, 255, 255, 0.15); border: 1.5px solid rgba(255, 255, 255, 0.3); color: #ffffff; font-size: 20px; font-weight: bold; cursor: pointer; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">✕</button>
+            </div>
+
+            <div class="modal-nutri-body">
+                <!-- BLOCO DESTINATÁRIO / EMAIL DA NUTRI COM DICA DE TESTE -->
+                <div style="background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 12px 14px; margin-bottom: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label for="inputEmailDestinoNutri" style="font-size: 12.5px; font-weight: 700; color: #1e3a8a; display: flex; align-items: center; gap: 6px;">
+                            📍 E-mail da Nutricionista (Destinatário):
+                        </label>
+                        <span style="font-size: 11px; background: #dbeafe; color: #1e40af; padding: 2px 6px; border-radius: 4px; font-weight: 600;">Editável para Testes</span>
+                    </div>
+                    <input type="email" id="inputEmailDestinoNutri" placeholder="ex: seu_email@gmail.com" 
+                           style="width: 100%; padding: 9px 12px; border: 1.5px solid #93c5fd; border-radius: 8px; font-size: 13.5px; font-weight: 600; color: #1e3a8a; background: #ffffff;"
+                           onchange="salvarEmailNutriNoStorage(this.value)">
+                    <p style="font-size: 11.5px; color: #3b82f6; margin-top: 6px; line-height: 1.4;">
+                        💡 <strong>Teste Real:</strong> Digite seu próprio Gmail/e-mail acima! A mensagem enviada chegará diretamente na sua caixa de entrada.
+                    </p>
+                </div>
+
+                <form id="formFaleNutri" onsubmit="event.preventDefault(); enviarViaSistemaBackend();">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                        <div class="form-group">
+                            <label for="nutriRemetenteNome">👤 Seu Nome:</label>
+                            <input type="text" id="nutriRemetenteNome" placeholder="Ex: Carlos Oliveira" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nutriRemetenteEmail">📧 Seu E-mail:</label>
+                            <input type="email" id="nutriRemetenteEmail" placeholder="Ex: carlos@gmail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 14px;">
+                        <label for="nutriAssunto">📋 Assunto:</label>
+                        <select id="nutriAssunto" required style="padding: 10px 12px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 13.5px;">
+                            <option value="Dúvida sobre Cardápio Escolar">Dúvida sobre Cardápio Escolar</option>
+                            <option value="Nova Alergia ou Restrição Alimentar">Nova Alergia ou Restrição Alimentar</option>
+                            <option value="Atualização de Laudo Médico">Atualização de Laudo Médico</option>
+                            <option value="Sintoma ou Reação Alimentar Observada">Sintoma ou Reação Alimentar Observada</option>
+                            <option value="Outro Assunto">Outro Assunto</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <label for="nutriMensagem">📝 Sua Dúvida / Mensagem:</label>
+                        <textarea id="nutriMensagem" rows="4" placeholder="Escreva aqui a sua dúvida ou mensagem para a nutricionista..." required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1.5px solid var(--border); font-family: inherit; font-size: 13.5px; resize: vertical;"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-nutri-footer">
+                <button type="button" class="btn btn-secondary" onclick="fecharModalFaleNutri()">Cancelar</button>
+                <button type="button" class="btn btn-gold" onclick="abrirNoGmailClient()" title="Abre no seu aplicativo de e-mail com tudo preenchido para disparar imediatamente">
+                    ✉️ Abrir e Enviar no meu Gmail
+                </button>
+                <button type="button" class="btn btn-primary" onclick="enviarViaSistemaBackend()" title="Registra no sistema e envia via backend">
+                    🚀 Enviar pelo Sistema
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

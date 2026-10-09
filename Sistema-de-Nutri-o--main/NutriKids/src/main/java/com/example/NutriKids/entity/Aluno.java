@@ -24,4 +24,13 @@ public class Aluno {
 
 
     private String restricao;
+
+    // Metadados do anexo da Carta / Laudo Médico
+    private String cartaMedicaNome;     // Nome original do arquivo (ex: "laudo_alergia.pdf")
+    private String cartaMedicaTipo;     // Content-Type (ex: "application/pdf", "image/jpeg")
+    private String cartaMedicaArquivo;  // Nome do arquivo gerado no servidor
+
+    // Foto do Aluno para segurança alimentar e identificação visual imediata
+    private String fotoUrl;             // Endpoint para renderizar a imagem (ex: "/api/alunos/1/foto")
+    private String fotoArquivo;         // Nome do arquivo gerado no disco
 }

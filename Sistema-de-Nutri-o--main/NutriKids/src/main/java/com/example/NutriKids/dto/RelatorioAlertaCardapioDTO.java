@@ -20,6 +20,7 @@ public class RelatorioAlertaCardapioDTO {
     private String sobremesa;
     private String alergenos;
     private String pratoAlternativo;
+    private String proteinaVegana;
     private int totalAlunosEmAlerta;
     private List<AlunoEmRiscoDTO> alunosEmAlerta;
 }

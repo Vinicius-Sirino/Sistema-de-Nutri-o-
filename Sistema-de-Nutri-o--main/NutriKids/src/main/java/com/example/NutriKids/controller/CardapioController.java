@@ -21,9 +21,16 @@ public class CardapioController {
     private final CardapioService cardapioService;
     private final NutricaoService nutricaoService;
 
-    // Listar todos os cardápios cadastrados
+    // Listar todos os cardápios cadastrados (ou filtrar por ano e mês)
     @GetMapping
-    public List<Cardapio> listarTodos() {
+    public List<Cardapio> listarTodos(
+            @RequestParam(required = false) Integer ano,
+            @RequestParam(required = false) Integer mes) {
+        if (ano != null && mes != null && mes >= 1 && mes <= 12) {
+            LocalDate inicio = LocalDate.of(ano, mes, 1);
+            LocalDate fim = inicio.withDayOfMonth(inicio.lengthOfMonth());
+            return cardapioService.buscarPorPeriodo(inicio, fim);
+        }
         return cardapioService.listarTodos();
     }
 
